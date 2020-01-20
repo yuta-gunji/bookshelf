@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'sassc-rails'
+gem 'slim-rails'
 gem 'webpacker', '~> 4.0'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
