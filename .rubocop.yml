@@ -1,0 +1,29 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  DisplayCopNames: true
+  Exclude:
+    - "vendor/**/*"
+    - "node_modules/**/*"
+    - "db/schema.rb"
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 150
+Metrics/MethodLength:
+  Max: 30
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*_spec.rb
+    - spec/factories/*
+    - spec/support/*
