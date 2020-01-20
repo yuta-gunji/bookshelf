@@ -2,7 +2,7 @@ AllCops:
   TargetRubyVersion: 2.6
   DisplayCopNames: true
   Exclude:
-    - "vendor/**/*" # rubocop config/default.yml
+    - "vendor/**/*"
     - "node_modules/**/*"
     - "db/schema.rb"
 
