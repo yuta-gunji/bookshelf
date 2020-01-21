@@ -14,7 +14,6 @@ gem 'puma', '~> 4.1'
 gem 'sassc-rails'
 gem 'slim-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'webpacker', '~> 4.0'
 
 group :development do
   gem 'byebug', platforms: %i[mri mingw x64_mingw], group: :test
