@@ -16,5 +16,9 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.10.1"
+  },
+  "scripts": {
+    "dev-build": "webpack --progress --mode=development",
+    "prod-build": "webpack --mode=production"
   }
 }
