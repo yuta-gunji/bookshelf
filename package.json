@@ -10,5 +10,8 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.10.1"
+  },
+  "scripts": {
+    "dev": "bin/webpack-dev-server & bin/rails server"
   }
 }
