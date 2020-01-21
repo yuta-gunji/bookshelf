@@ -8,13 +8,13 @@ ruby '2.6.5'
 gem 'rails', '~> 6.0.2'
 
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'foreman'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'sassc-rails'
 gem 'slim-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'webpacker', '~> 4.0'
 
 group :development do
   gem 'byebug', platforms: %i[mri mingw x64_mingw], group: :test

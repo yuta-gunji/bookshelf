@@ -1,2 +1,0 @@
-rails: bin/rails server
-webpack: yarn watch
