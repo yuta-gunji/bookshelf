@@ -8,6 +8,7 @@ ruby '2.6.5'
 gem 'rails', '~> 6.0.2'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'foreman'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'

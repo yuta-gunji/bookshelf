@@ -18,7 +18,9 @@
     "webpack-dev-server": "^3.10.1"
   },
   "scripts": {
+    "dev": "bundle exec foreman start --procfile=Procfile.development --port=3000",
     "dev-build": "webpack --progress --mode=development",
-    "prod-build": "webpack --mode=production"
+    "prod-build": "webpack --mode=production",
+    "watch": "webpack --progress --watch"
   }
 }
