@@ -12,18 +12,23 @@ Layout/SpaceInsideArrayLiteralBrackets:
 Style/AsciiComments:
   Enabled: false
 
-Style/RedundantReturn:
-  Enabled: false
-
 Style/Documentation:
   Enabled: false
 
-Metrics/LineLength:
-  Max: 150
-Metrics/MethodLength:
-  Max: 30
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/RedundantReturn:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
     - spec/factories/*
     - spec/support/*
+
+Metrics/LineLength:
+  Max: 150
+
+Metrics/MethodLength:
+  Max: 30
