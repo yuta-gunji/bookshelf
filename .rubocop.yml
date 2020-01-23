@@ -15,6 +15,9 @@ Style/AsciiComments:
 Style/Documentation:
   Enabled: false
 
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
 Style/RedundantReturn:
   Enabled: false
 
