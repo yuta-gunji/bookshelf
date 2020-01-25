@@ -22,6 +22,7 @@ ja:
   login: 'ログイン'
   login_failed: 'ログインに失敗しました。'
   login_succeeded: 'ログインしました。'
+  already_logged_in: '既にログインしています。'
   logout: 'ログアウト'
   logout_succeeded: 'ログアウトしました。'
   successfully_registered: '正常に登録されました。'

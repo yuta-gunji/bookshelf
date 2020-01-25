@@ -2,6 +2,8 @@
 
 class SessionsController < ApplicationController
   def new
+    flash[:info] = I18n.t(:already_logged_in)
+    return redirect_to root_path if logged_in_user?
   end
 
   def create
