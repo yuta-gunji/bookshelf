@@ -6,6 +6,9 @@ AllCops:
     - "node_modules/**/*"
     - "db/schema.rb"
 
+Layout/LineLength:
+  Max: 150
+
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
 
@@ -29,9 +32,6 @@ Metrics/BlockLength:
     - spec/**/*_spec.rb
     - spec/factories/*
     - spec/support/*
-
-Metrics/LineLength:
-  Max: 150
 
 Metrics/MethodLength:
   Max: 30
