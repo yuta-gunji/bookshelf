@@ -1,0 +1,19 @@
+nav.navbar.navbar-expand-lg.sticky-top.navbar-light.bg-light
+  = link_to 'Navbar', root_path, class: 'navbar-brand'
+  button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"]
+    span.navbar-toggler-icon
+  #navbarNavDropdown.collapse.navbar-collapse
+    ul.navbar-nav.nav-fill.w-75
+      li.nav-item
+        = link_to '書籍一覧', '#', class: 'nav-link'
+      li.nav-item
+        = link_to '書籍検索', '#', class: 'nav-link'
+      li.nav-item
+        = link_to 'ランキング', '#', class: 'nav-link'
+    ul.navbar-nav.ml-auto.mr-4
+      li.nav-item.dropdown
+        a#navbarDropdownMenuLink.nav-link.dropdown-toggle[href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+          | DropDownLink
+        .dropdown-menu[aria-labelledby="navbarDropdownMenuLink"]
+          = link_to 'プロフィール', '#', class: 'dropdown-item'
+          = link_to 'ログアウト', '#', class: 'dropdown-item'
