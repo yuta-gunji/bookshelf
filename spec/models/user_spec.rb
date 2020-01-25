@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
       it { expect(user.email).to eq mixed_case_email.downcase }
     end
 
-    context 'when email addresse is valid ' do
+    context 'when email address is valid ' do
       valid_addresses = %w[
         user@example.com
         USER@foo.COM
