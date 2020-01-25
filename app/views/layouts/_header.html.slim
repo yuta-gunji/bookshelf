@@ -3,15 +3,14 @@ nav.navbar.navbar-expand-lg.sticky-top.navbar-light.bg-light
   button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"]
     span.navbar-toggler-icon
   #navbarNavDropdown.collapse.navbar-collapse
-    ul.navbar-nav.nav-fill.w-75
-      li.nav-item
+    ul.navbar-nav.w-100.d-flex.justify-content-between
+      li.nav-item.mx-auto
         = link_to '書籍一覧', '#', class: 'nav-link'
-      li.nav-item
+      li.nav-item.mx-auto
         = link_to '書籍検索', '#', class: 'nav-link'
-      li.nav-item
+      li.nav-item.mx-auto
         = link_to 'ランキング', '#', class: 'nav-link'
-    ul.navbar-nav.ml-auto.mr-4
-      li.nav-item.dropdown
+      li.nav-item.dropdown.mx-auto
         a#navbarDropdownMenuLink.nav-link.dropdown-toggle[href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
           | DropDownLink
         .dropdown-menu[aria-labelledby="navbarDropdownMenuLink"]
