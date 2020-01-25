@@ -23,8 +23,8 @@ require 'rspec/rails'
 # of increasing the boot-up time by auto-requiring all files in the support
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
-#
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -69,4 +69,21 @@ RSpec.configure do |config|
   config.before(:all) do
     FactoryBot.reload
   end
+
+  # System spec
+
+  Capybara.server = :puma
+  config.before(:each) do |example|
+    if example.metadata[:type] == :system
+      if example.metadata[:js]
+        driven_by :selenium, using: :headless_chrome, screen_size: [1440, 900]
+      else
+        driven_by :rack_test
+      end
+    end
+  end
+
+  # helpers
+
+  config.include(SystemSpecHelper, type: :system)
 end
