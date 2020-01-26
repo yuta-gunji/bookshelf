@@ -14,4 +14,9 @@ class ApplicationController < ActionController::Base
   def logged_in_user?
     !current_user.nil?
   end
+
+  # @param user [User]
+  def login(user)
+    session[:user_id] = user.id
+  end
 end

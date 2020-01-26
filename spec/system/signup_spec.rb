@@ -14,6 +14,8 @@ RSpec.feature 'Signup', type: :system do
 
     expect { click_button I18n.t(:register) }.to change { User.count }.by(1)
     expect(current_path).to eq root_path
+    expect(page).to have_link I18n.t(:logout), href: logout_path
+    expect(page).not_to have_link I18n.t(:login), href: login_path
   end
 
   scenario 'has some errors' do

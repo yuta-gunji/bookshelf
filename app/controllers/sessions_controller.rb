@@ -30,8 +30,4 @@ class SessionsController < ApplicationController
       :password,
     )
   end
-
-  def login(user)
-    session[:user_id] = user.id
-  end
 end
