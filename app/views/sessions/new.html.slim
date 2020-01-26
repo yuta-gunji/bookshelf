@@ -9,7 +9,11 @@
         .form-group
           = f.label :password, User.human_attribute_name(:password)
           = f.password_field :password, class: 'form-control', required: true
-        = f.submit I18n.t(:login), class: 'btn btn-raised btn-block btn-primary mt-5'
+        .form-check.align-middle
+          = f.check_box :remember_me, class: 'form-check-input'
+          = f.label :remember_me, User.human_attribute_name(:remember_me), class: 'form-check-label text-muted align-middle'
+        .form-group
+          = f.submit I18n.t(:login), class: 'btn btn-raised btn-block btn-primary mt-4'
       hr.my-4
       p.text-center.text-muted
         | アカウントをお持ちでない方は
