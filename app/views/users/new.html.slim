@@ -19,3 +19,7 @@
           = f.label :password_confirmation, User.human_attribute_name(:password_confirmation)
           = f.password_field :password_confirmation, class: 'form-control', required: true
         = f.submit I18n.t(:register), class: 'btn btn-raised btn-block btn-primary mt-5'
+      hr.my-4
+      p.text-center.text-muted
+        | アカウントお持ちの方は
+        span= link_to 'こちら', login_path, class: 'text-info'

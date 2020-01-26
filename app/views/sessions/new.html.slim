@@ -10,3 +10,7 @@
           = f.label :password, User.human_attribute_name(:password)
           = f.password_field :password, class: 'form-control', required: true
         = f.submit I18n.t(:login), class: 'btn btn-raised btn-block btn-primary mt-5'
+      hr.my-4
+      p.text-center.text-muted
+        | アカウントをお持ちでない方は
+        span= link_to 'こちら', signup_path, class: 'text-info'

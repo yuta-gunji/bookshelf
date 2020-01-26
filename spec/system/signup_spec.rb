@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.feature 'Signup', type: :system do
   scenario 'is processed correctly' do
     visit signup_path
+    expect(page).to have_link 'こちら', href: login_path
+
     fill_in User.human_attribute_name(:name), with: 'yuta'
     fill_in User.human_attribute_name(:email), with: 'example@example.com'
     fill_in User.human_attribute_name(:password), with: 'password'
