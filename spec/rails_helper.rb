@@ -86,4 +86,5 @@ RSpec.configure do |config|
   # helpers
 
   config.include(SystemSpecHelper, type: :system)
+  config.include(ModelSpecHelper, type: :model)
 end
