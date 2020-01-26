@@ -1,0 +1,25 @@
+.signup-wrapper.my-4
+  .row.justify-content-center
+    .col-12.col-md-6.col-lg-4.p-4.bg-white
+      h2.text-center.mb-4
+        = I18n.t(:new)
+        = I18n.t(:register)
+      = render partial: 'shared/error_messages', locals: { object: @user }
+      = form_with scope: 'user', url: signup_path, local: true do |f|
+        .form-group
+          = f.label :name, User.human_attribute_name(:name)
+          = f.text_field :name, class: 'form-control', required: true
+        .form-group
+          = f.label :email, User.human_attribute_name(:email)
+          = f.text_field :email, class: 'form-control', required: true
+        .form-group
+          = f.label :password, User.human_attribute_name(:password)
+          = f.password_field :password, class: 'form-control', required: true
+        .form-group
+          = f.label :password_confirmation, User.human_attribute_name(:password_confirmation)
+          = f.password_field :password_confirmation, class: 'form-control', required: true
+        = f.submit I18n.t(:register), class: 'btn btn-raised btn-block btn-primary mt-5'
+      hr.my-4
+      p.text-center.text-muted
+        | アカウントお持ちの方は
+        span= link_to 'こちら', login_path, class: 'text-info'

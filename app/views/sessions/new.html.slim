@@ -1,12 +1,16 @@
 .login-wrapper.my-4
   .row.justify-content-center
     .col-12.col-md-6.col-lg-4.p-4.bg-white
-      h2.text-center= I18n.t(:login)
+      h2.text-center.mb-4= I18n.t(:login)
       = form_with scope: :session, local: true do |f|
-        .form-group.my-4
-          = f.label :email, User.human_attribute_name(:email), class: 'mb-0'
+        .form-group
+          = f.label :email, User.human_attribute_name(:email)
           = f.text_field :email, class: 'form-control', required: true
-        .form-group.my-4
-          = f.label :password, User.human_attribute_name(:password), class: 'mb-0'
+        .form-group
+          = f.label :password, User.human_attribute_name(:password)
           = f.password_field :password, class: 'form-control', required: true
-        = f.submit I18n.t(:login), class: 'btn btn-raised btn-block btn-primary'
+        = f.submit I18n.t(:login), class: 'btn btn-raised btn-block btn-primary mt-5'
+      hr.my-4
+      p.text-center.text-muted
+        | アカウントをお持ちでない方は
+        span= link_to 'こちら', signup_path, class: 'text-info'

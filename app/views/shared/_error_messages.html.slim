@@ -1,0 +1,5 @@
+- if object.errors.present?
+  #error_explanation.my-3
+    ul.text-danger.m-0
+      - object.errors.full_messages.each do |msg|
+        li.py-1= msg

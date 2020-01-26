@@ -1,6 +1,6 @@
 ja:
   index: '一覧'
-  new: '新規作成'
+  new: '新規'
   show: '詳細'
   edit: '編集'
   history: '履歴'
@@ -13,6 +13,7 @@ ja:
   delete_ok?: "本当に削除しますか？"
   search: '検索'
   failed: '処理に失敗しました'
+  register: '登録'
 
   successfully_created: '正常に作成されました。'
   successfully_updated: '正常に更新されました。'
