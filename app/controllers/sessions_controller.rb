@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
     if user&.authenticate(session_params[:password])
       login(user)
+      update_remember_status(user)
       flash[:success] = I18n.t(:login_succeeded)
       redirect_to root_path
     else
@@ -17,7 +18,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
+    logout if logged_in_user?
     flash[:success] = I18n.t(:logout_succeeded)
     redirect_to root_path
   end
@@ -28,6 +29,28 @@ class SessionsController < ApplicationController
     params.require(:session).permit(
       :email,
       :password,
+      :remember_me,
     )
+  end
+
+  def logout
+    forget(current_user)
+    reset_session
+  end
+
+  def remember(user)
+    user.remember
+    cookies.permanent.signed[:user_id] = user.id
+    cookies.permanent[:remember_token] = user.remember_token
+  end
+
+  def forget(user)
+    user.forget
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
+  end
+
+  def update_remember_status(user)
+    session_params[:remember_me] == '1' ? remember(user) : forget(user)
   end
 end

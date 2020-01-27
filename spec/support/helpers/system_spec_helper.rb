@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 module SystemSpecHelper
-  # @param user [User]
-  def login_as(user)
+  def login_as(user, remember: '1')
     visit login_path
     fill_in User.human_attribute_name(:email), with: user.email
     fill_in User.human_attribute_name(:password), with: 'password'
+    if remember == '1'
+      check User.human_attribute_name(:remember_me)
+    elsif remember == '0'
+      uncheck User.human_attribute_name(:remember_me)
+    end
     click_button I18n.t(:login)
   end
 
