@@ -97,4 +97,37 @@ RSpec.describe User, type: :model do
     encrypted_password = User.digest('password')
     it { expect(encrypted_password).to be_an_instance_of(BCrypt::Password) }
   end
+
+  describe '.new_token' do
+    it { expect(User.new_token).to be_an_instance_of(String) }
+  end
+
+  describe '#remember' do
+    before do
+      user.remember
+    end
+    it { expect(user.remember_digest).to be_truthy }
+  end
+
+  describe '#authenticated?' do
+    context 'when remember_digest exists' do
+      let(:remember_token) { new_token }
+      let(:user_with_digest) { create(:user, remember_digest: digest(remember_token)) }
+      it { expect(user_with_digest.authenticated?(remember_token)).to be_truthy }
+    end
+
+    context 'when remember_digest is empty' do
+      let(:remember_token) { new_token }
+      let(:user_without_digest) { create(:user, remember_digest: nil) }
+      it { expect(user.authenticated?(remember_token)).to be_falsey }
+    end
+  end
+
+  describe '#forget' do
+    let(:user_with_digest) { create(:user, remember_digest: digest(new_token)) }
+    before do
+      user.forget
+    end
+    it { expect(user.remember_digest).to be_falsey }
+  end
 end
