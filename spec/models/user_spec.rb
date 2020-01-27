@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { build(:user) }
-  let(:mixed_case_email) { 'Foo@ExAMPle.CoM' }
 
   describe 'validations' do
     context 'when valid user' do
@@ -22,23 +21,20 @@ RSpec.describe User, type: :model do
     end
 
     context 'when email does not unique' do
+      let(:user) { create(:user) }
+      let(:duplicate_user) { user.dup }
       before do
-        user.save
-      end
-
-      it {
-        duplicate_user = user.dup
         duplicate_user.email = user.email.upcase
-        expect(duplicate_user).not_to be_valid
-      }
+      end
+      it { expect(duplicate_user).not_to be_valid }
     end
 
     context 'when input email has upper-case' do
+      let(:mixed_case_email) { 'Foo@ExAMPle.CoM' }
       before do
         user.email = mixed_case_email
         user.save
       end
-
       it { expect(user.email).to eq mixed_case_email.downcase }
     end
 
@@ -52,10 +48,10 @@ RSpec.describe User, type: :model do
       ]
 
       valid_addresses.each do |valid_address|
-        it {
+        before do
           user.email = valid_address
-          expect(user).to be_valid
-        }
+        end
+        it { expect(user).to be_valid }
       end
     end
 
@@ -70,10 +66,10 @@ RSpec.describe User, type: :model do
       ]
 
       invalid_addresses.each do |invalid_address|
-        it {
+        before do
           user.email = invalid_address
-          expect(user).not_to be_valid
-        }
+        end
+        it { expect(user).not_to be_valid }
       end
     end
 
@@ -103,6 +99,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#remember' do
+    let(:user) { create(:user) }
     before do
       user.remember
     end
@@ -119,12 +116,12 @@ RSpec.describe User, type: :model do
     context 'when remember_digest is empty' do
       let(:remember_token) { new_token }
       let(:user_without_digest) { create(:user, remember_digest: nil) }
-      it { expect(user.authenticated?(remember_token)).to be_falsey }
+      it { expect(user_without_digest.authenticated?(remember_token)).to be_falsey }
     end
   end
 
   describe '#forget' do
-    let(:user_with_digest) { create(:user, remember_digest: digest(new_token)) }
+    let(:user) { create(:user, remember_digest: digest(new_token)) }
     before do
       user.forget
     end
