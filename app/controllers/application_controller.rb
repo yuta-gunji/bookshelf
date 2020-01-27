@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
     !current_user.nil?
   end
 
-  # @param user [User]
   def login(user)
     session[:user_id] = user.id
   end

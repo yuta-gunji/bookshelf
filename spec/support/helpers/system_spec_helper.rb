@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module SystemSpecHelper
-  # @param user [User]
   def login_as(user, remember: '1')
     visit login_path
     fill_in User.human_attribute_name(:email), with: user.email

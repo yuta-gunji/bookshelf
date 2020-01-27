@@ -38,7 +38,6 @@ class SessionsController < ApplicationController
     reset_session
   end
 
-  # @param user [User]
   def remember(user)
     user.remember
     cookies.permanent.signed[:user_id] = user.id
