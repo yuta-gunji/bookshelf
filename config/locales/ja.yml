@@ -33,6 +33,8 @@ ja:
   password_mismatch: 'パスワードが一致しません。'
   invalid_activation_link: '有効化のリンクが無効です。'
   sent_email_for_account_activation: 'アカウント有効化のためのメールを送信しました。'
+  account_not_activated: 'アカウントが有効化されていません。'
+  check_email_for_activation_link: 'メールの有効化リンクを確認してください。'
 
   time:
     formats:
