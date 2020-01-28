@@ -30,6 +30,7 @@ ja:
   successfully_registered: '正常に登録されました。'
   already_registered: '既に登録されています。'
   password_mismatch: 'パスワードが一致しません。'
+  sent_email_for_account_activation: 'アカウント有効化のためのメールを送信しました。'
 
   time:
     formats:

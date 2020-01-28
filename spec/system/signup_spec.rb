@@ -13,9 +13,10 @@ RSpec.feature 'Signup', type: :system do
     fill_in User.human_attribute_name(:password_confirmation), with: 'password'
     expect { click_button I18n.t(:register) }.to change { User.count }.by(1)
 
+    expect(ActionMailer::Base.deliveries.size).to eq 1
     expect(current_path).to eq root_path
-    expect(page).to have_link I18n.t(:logout), href: logout_path
-    expect(page).not_to have_link I18n.t(:login), href: login_path
+    expect(page).to have_link I18n.t(:login), href: login_path
+    expect(page).not_to have_link I18n.t(:logout), href: logout_path
   end
 
   scenario 'has some errors' do
