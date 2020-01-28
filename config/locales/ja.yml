@@ -14,6 +14,8 @@ ja:
   search: '検索'
   failed: '処理に失敗しました'
   register: '登録'
+  account_activation: 'アカウント有効化'
+  activate: '有効化'
 
   successfully_created: '正常に作成されました。'
   successfully_updated: '正常に更新されました。'

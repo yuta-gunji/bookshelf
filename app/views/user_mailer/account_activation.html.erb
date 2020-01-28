@@ -1,0 +1,5 @@
+<h2>BookShelf</h2>
+
+<p>以下のリンクからアカウントの有効化をお願いします。</p>
+
+<%= link_to I18n.t(:activate), edit_account_activation_url(@user.activation_token, email: @user.email) %>
