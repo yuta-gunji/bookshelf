@@ -43,6 +43,10 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  def activate
+    update_columns(activated: true, activated_at: Time.current)
+  end
+
   private
 
   def downcase_email

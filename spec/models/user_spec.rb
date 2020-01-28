@@ -127,4 +127,9 @@ RSpec.describe User, type: :model do
     end
     it { expect(user.remember_digest).to be_falsey }
   end
+
+  describe '#activate' do
+    let(:user) { create(:user, activated: false, activated_at: nil) }
+    it { expect { user.activate }.to change { user.activated }.from(false).to(true) }
+  end
 end
