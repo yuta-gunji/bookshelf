@@ -12,6 +12,7 @@ class User < ApplicationRecord
                        length: { minimum: 6 }
 
   before_save :downcase_email
+  before_create :create_activation_digest
 
   has_secure_password
 
@@ -24,7 +25,7 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
 
   def remember
     self.remember_token = User.new_token
@@ -45,5 +46,10 @@ class User < ApplicationRecord
 
   def downcase_email
     email.downcase!
+  end
+
+  def create_activation_digest
+    self.activation_token = User.new_token
+    self.activation_digest = User.digest(activation_token)
   end
 end
