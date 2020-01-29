@@ -132,4 +132,9 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user, activated: false, activated_at: nil) }
     it { expect { user.activate }.to change { user.activated }.from(false).to(true) }
   end
+
+  describe '#create_reset_digest' do
+    let(:user) { create(:user, reset_digest: nil, reset_sent_at: nil) }
+    it { expect { user.create_reset_digest }.to change { user.reset_digest }.from(be_falsey).to(be_truthy) }
+  end
 end

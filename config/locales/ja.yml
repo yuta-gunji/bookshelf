@@ -16,6 +16,8 @@ ja:
   register: '登録'
   account_activation: 'アカウント有効化'
   activate: '有効化'
+  send: '送信'
+  password_reset: 'パスワード再設定'
 
   successfully_created: '正常に作成されました。'
   successfully_updated: '正常に更新されました。'
@@ -36,6 +38,9 @@ ja:
   account_not_activated: 'アカウントが有効化されていません。'
   check_email_for_activation_link: 'メールの有効化リンクを確認してください。'
   forget_password?: 'パスワードをお忘れですか？'
+  send_password_reset_link: 'パスワード再設定用のリンクをお送りします。'
+  sent_password_reset_link: 'パスワード再設定用のリンクをお送りしました。'
+  email_address_not_found: 'メールアドレスが見つかりません。'
 
   time:
     formats:
