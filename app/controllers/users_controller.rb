@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      login(@user)
-      flash[:success] = I18n.t(:successfully_created)
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = I18n.t(:sent_email_for_account_activation)
       redirect_to root_path
     else
       render :new

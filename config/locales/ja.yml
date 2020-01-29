@@ -14,11 +14,14 @@ ja:
   search: '検索'
   failed: '処理に失敗しました'
   register: '登録'
+  account_activation: 'アカウント有効化'
+  activate: '有効化'
 
   successfully_created: '正常に作成されました。'
   successfully_updated: '正常に更新されました。'
   successfully_deleted: '正常に削除されました。'
   successfully_processed: '正常に処理されました。'
+  successfully_activated: '正常に有効化されました。'
 
   login: 'ログイン'
   login_failed: 'ログインに失敗しました。'
@@ -28,6 +31,10 @@ ja:
   successfully_registered: '正常に登録されました。'
   already_registered: '既に登録されています。'
   password_mismatch: 'パスワードが一致しません。'
+  invalid_activation_link: '有効化のリンクが無効です。'
+  sent_email_for_account_activation: 'アカウント有効化のためのメールを送信しました。'
+  account_not_activated: 'アカウントが有効化されていません。'
+  check_email_for_activation_link: 'メールの有効化リンクを確認してください。'
 
   time:
     formats:
