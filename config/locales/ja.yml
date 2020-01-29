@@ -35,6 +35,7 @@ ja:
   sent_email_for_account_activation: 'アカウント有効化のためのメールを送信しました。'
   account_not_activated: 'アカウントが有効化されていません。'
   check_email_for_activation_link: 'メールの有効化リンクを確認してください。'
+  forget_password?: 'パスワードをお忘れですか？'
 
   time:
     formats:
