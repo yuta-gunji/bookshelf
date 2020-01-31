@@ -9,5 +9,7 @@ FactoryBot.define do
     activation_digest { nil }
     activated { true }
     activated_at { Time.current }
+    reset_digest { nil }
+    reset_sent_at { nil }
   end
 end
