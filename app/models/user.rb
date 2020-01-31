@@ -52,6 +52,10 @@ class User < ApplicationRecord
     update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.current)
   end
 
+  def password_reset_expired?
+    reset_sent_at < 24.hours.ago
+  end
+
   private
 
   def downcase_email
