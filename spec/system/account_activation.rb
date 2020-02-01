@@ -27,7 +27,7 @@ RSpec.feature 'AccountActivation', type: :system do
       visit edit_account_activation(user.activation_token, email: another_user.email)
       expect(page).to have_link I18n.t(:login), href: login_path
       expect(page).not_to have_link I18n.t(:logout), href: logout_path
-      expect(page).to have_selector '.alert-success', text: I18n.t(:invalid_activation_link)
+      expect(page).to have_selector '.alert-danger', text: I18n.t(:invalid_activation_link)
     end
   end
 end
