@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
-  resources :account_activation, only: %i[edit]
+  resources :account_activations, only: %i[edit]
   resources :password_resets, only: %i[new create edit update]
   root to: 'top#index'
 end
