@@ -10,9 +10,10 @@ module GoogleBooks
       @publisher = args[:publisher]
       @published_date = args[:published_date]
       @description = args[:description]
-      @industry_identifiers = args[:industry_identifiers]
+      @isbn10 = args[:isbn10]
+      @isbn13 = args[:isbn13]
     end
 
-    attr_reader :book_id, :title, :authors, :image_url, :publisher, :published_date, :description, :industry_identifiers
+    attr_reader :book_id, :title, :authors, :image_url, :publisher, :published_date, :description, :isbn10, :isbn13
   end
 end
