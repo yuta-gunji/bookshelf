@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_041902) do
+ActiveRecord::Schema.define(version: 2020_02_06_044226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2020_02_06_041902) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["google_books_id"], name: "index_books_on_google_books_id", unique: true
+  end
+
+  create_table "bookshelf_books", force: :cascade do |t|
+    t.bigint "bookshelf_id", null: false
+    t.bigint "book_id", null: false
+    t.date "adding_date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bookshelf_id", "book_id"], name: "index_bookshelf_books_on_bookshelf_id_and_book_id", unique: true
   end
 
   create_table "bookshelves", force: :cascade do |t|
@@ -53,5 +62,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_041902) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "bookshelf_books", "books"
+  add_foreign_key "bookshelf_books", "bookshelves"
   add_foreign_key "bookshelves", "users"
 end
