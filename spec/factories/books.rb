@@ -10,6 +10,6 @@ FactoryBot.define do
     description { 'description' }
     isbn_10 { nil }
     isbn_13 { nil }
-    google_book_id { SecureRandom.hex(6) }
+    google_books_id { SecureRandom.hex(6) }
   end
 end
