@@ -1,5 +1,5 @@
 {
-  "name": "bookshelf",
+  "name": "my-bookshelf",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",

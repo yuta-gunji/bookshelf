@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: docker/db/Dockerfile
     volumes:
-      - boookshelf_postgres:/var/lib/postgresql/data
+      - my_boookshelf_postgres:/var/lib/postgresql/data
     ports:
       - 15432:5432
 volumes:
-  boookshelf_postgres:
+  my_boookshelf_postgres:
     external: true
