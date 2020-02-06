@@ -35,6 +35,8 @@ Style/TrailingCommaInArguments:
 
 Metrics/AbcSize:
   Max: 20
+  Exclude:
+    - db/migrate/*.rb
 
 Metrics/BlockLength:
   Exclude:
