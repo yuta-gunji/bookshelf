@@ -10,10 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_29_055856) do
+ActiveRecord::Schema.define(version: 2020_02_06_044226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "books", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "authors"
+    t.string "publisher"
+    t.date "published_date"
+    t.string "image_url"
+    t.text "description"
+    t.string "isbn_10"
+    t.string "isbn_13"
+    t.string "google_books_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["google_books_id"], name: "index_books_on_google_books_id", unique: true
+  end
+
+  create_table "bookshelf_books", force: :cascade do |t|
+    t.bigint "bookshelf_id", null: false
+    t.bigint "book_id", null: false
+    t.date "adding_date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bookshelf_id", "book_id"], name: "index_bookshelf_books_on_bookshelf_id_and_book_id", unique: true
+  end
+
+  create_table "bookshelves", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_bookshelves_on_user_id", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
@@ -30,4 +62,7 @@ ActiveRecord::Schema.define(version: 2020_01_29_055856) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "bookshelf_books", "books"
+  add_foreign_key "bookshelf_books", "bookshelves"
+  add_foreign_key "bookshelves", "users"
 end
