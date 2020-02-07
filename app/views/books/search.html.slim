@@ -24,4 +24,14 @@
                 | &nbsp;/&nbsp;
               = book.publisher
           .card-footer.text-center
-            = link_to I18n.t(:add_to_bookshelf), '#', class: 'btn btn-raised btn-primary'
+            = form_with scope: 'book', url: bookshelf_path(current_user.bookshelf), method: :patch, local: true, class: 'mb-0' do |f|
+              = f.hidden_field :google_books_id, value: book.google_books_id
+              = f.hidden_field :title, value: book.title
+              = f.hidden_field :authors, value: book.authors.join(', ')
+              = f.hidden_field :image_url, value: book.image_url
+              = f.hidden_field :publisher, value: book.publisher
+              = f.hidden_field :published_date, value: book.published_date
+              = f.hidden_field :description, value: book.description
+              = f.hidden_field :isbn_10, value: book.isbn10
+              = f.hidden_field :isbn_13, value: book.isbn13
+              = f.submit I18n.t(:add_to_bookshelf), class: 'btn btn-raised btn-primary'
