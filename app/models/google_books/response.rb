@@ -11,14 +11,15 @@ module GoogleBooks
         book_info = item['volumeInfo']
 
         Book.new(
-          book_id: item['id'],
+          google_books_id: item['id'],
           title: book_info['title'],
           authors: book_info['authors'] || [],
           image_url: book_info['imageLinks'] ? book_info['imageLinks']['thumbnail'] : nil,
           publisher: book_info['publisher'],
           published_date: book_info['publishedDate'],
           description: book_info['description'],
-          industry_identifiers: book_info['industryIdentifiers']
+          isbn10: extract_isbn(item, 10),
+          isbn13: extract_isbn(item, 13)
         )
       end
     end
@@ -27,6 +28,14 @@ module GoogleBooks
 
     def parsed_body
       JSON.parse(@faraday_response.body)
+    end
+
+    def extract_isbn(item, digits_number)
+      isbns = item['volumeInfo']['industryIdentifiers']
+      if isbns.present?
+        isbn = isbns.find { |hash| hash['type'] == "ISBN_#{digits_number}" }
+        isbn.present? ? isbn['identifier'] : nil
+      end
     end
   end
 end

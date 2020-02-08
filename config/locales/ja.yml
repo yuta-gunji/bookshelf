@@ -49,6 +49,7 @@ ja:
   retry_password_reset: '再度パスワードリセットの処理を行ってください。'
   passwrod_has_been_reset: 'パスワードが更新されました。'
   activate_account: 'アカウントの有効化を行ってください。'
+  added_to_bookshelf: '本棚へ追加しました。'
 
   time:
     formats:

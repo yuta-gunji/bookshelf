@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :bookshelf_book do
     book
-    book_shelf
-    adding_date { Date.today }
+    bookshelf
+    adding_date { Date.current }
   end
 end

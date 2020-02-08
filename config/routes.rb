@@ -14,5 +14,7 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
+  resources :bookshelves, only: %i[update]
+
   root to: 'top#index'
 end
