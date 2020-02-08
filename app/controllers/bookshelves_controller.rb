@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class BookshelvesController < ApplicationController
+  before_action :authenticate_user!, only: %i[add_book]
+
   def add_book
     book = find_or_create_book!
     current_user.bookshelf.add!(book)
