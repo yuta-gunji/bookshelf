@@ -24,4 +24,11 @@ class ApplicationController < ActionController::Base
   def login(user)
     session[:user_id] = user.id
   end
+
+  def authenticate_user!
+    unless logged_in_user?
+      flash[:danger] = I18n.t(:please_login)
+      redirect_to login_path
+    end
+  end
 end

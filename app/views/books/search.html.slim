@@ -24,7 +24,7 @@
                 | &nbsp;/&nbsp;
               = book.publisher
           .card-footer.text-center
-            = form_with scope: 'book', url: bookshelf_path(current_user.bookshelf), method: :patch, local: true, class: 'mb-0' do |f|
+            = form_with scope: 'book', url: add_book_bookshelves_path, method: :post, local: true, class: 'mb-0' do |f|
               = f.hidden_field :google_books_id, value: book.google_books_id
               = f.hidden_field :title, value: book.title
               = f.hidden_field :authors, value: book.authors.join(', ')

@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
-  resources :bookshelves, only: %i[update]
+  resources :bookshelves, only: %i[] do
+    post :add_book, on: :collection
+  end
 
   root to: 'top#index'
 end
