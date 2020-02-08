@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BookshelvesController < ApplicationController
-  def update
+  def add_book
     book = find_or_create_book!
     current_user.bookshelf.add!(book)
     flash[:success] = I18n.t(:added_to_bookshelf)
