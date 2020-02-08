@@ -11,7 +11,7 @@ module GoogleBooks
         book_info = item['volumeInfo']
 
         Book.new(
-          book_id: item['id'],
+          google_books_id: item['id'],
           title: book_info['title'],
           authors: book_info['authors'] || [],
           image_url: book_info['imageLinks'] ? book_info['imageLinks']['thumbnail'] : nil,
