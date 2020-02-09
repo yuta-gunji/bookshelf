@@ -21,4 +21,8 @@ module SystemSpecHelper
   def logout
     click_link I18n.t(:logout)
   end
+
+  def create_bookshelf(user)
+    user.create_bookshelf(name: "#{user.name}さんの本棚")
+  end
 end

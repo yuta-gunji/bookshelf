@@ -6,9 +6,9 @@ header
     #navbarNavDropdown.collapse.navbar-collapse
       ul.navbar-nav.w-100.d-flex.justify-content-between
         li.nav-item.mx-auto
-          = link_to '書籍一覧', '#', class: 'nav-link'
+          = link_to Book.model_name.human + I18n.t(:index), books_path, class: 'nav-link'
         li.nav-item.mx-auto
-          = link_to '書籍検索', '#', class: 'nav-link'
+          = link_to Book.model_name.human + I18n.t(:search), search_books_path, class: 'nav-link'
         li.nav-item.mx-auto
           = link_to 'ランキング', '#', class: 'nav-link'
         - if logged_in_user?

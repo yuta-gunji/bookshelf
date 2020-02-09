@@ -51,6 +51,7 @@ ja:
   activate_account: 'アカウントの有効化を行ってください。'
   added_to_bookshelf: '本棚へ追加しました。'
   please_login: 'ログインしてください。'
+  already_added: '本棚へ追加済み'
 
   time:
     formats:
