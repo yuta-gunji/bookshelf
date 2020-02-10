@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: %i[edit]
   resources :password_resets, only: %i[new create edit update]
 
-  resources :books, only: %i[index] do
+  resources :books, only: %i[index show] do
     get :search, on: :collection
   end
 
