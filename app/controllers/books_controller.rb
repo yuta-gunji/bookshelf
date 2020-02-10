@@ -13,6 +13,12 @@ class BooksController < ApplicationController
     @added_books_unique_ids = current_user.bookshelf.books.pluck(:google_books_id) if logged_in_user?
   end
 
+  def show
+    @book = Book.find(params[:id])
+    @reviews_number = @book.bookshelf_books.count
+    @adding_status = current_user.bookshelf.books.include?(@book) if logged_in_user?
+  end
+
   def search
     if (@keyword = params[:keyword]).present?
       request = GoogleBooks::Request.new(params[:keyword])
