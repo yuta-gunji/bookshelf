@@ -14,7 +14,7 @@ html
   body
     = render partial: 'layouts/header'
     main
-      .container.my-3
-        - flash.each do |key, value|
+      - flash.each do |key, value|
+        .container.my-3
           = content_tag(:div, value, role: 'alert', class: "alert alert-#{key}")
       = yield
