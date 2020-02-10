@@ -6,9 +6,9 @@ class BooksController < ApplicationController
   def index
     @books =
       if (@keyword = params[:keyword])
-        Book.where('lower(title) LIKE ?', "%#{sanitize_sql_like(@keyword.downcase)}%").order(created_at: :desc)
+        Book.where('lower(title) LIKE ?', "%#{sanitize_sql_like(@keyword.downcase)}%").recent
       else
-        Book.order(created_at: :desc)
+        Book.recent
       end
     @added_books_unique_ids = current_user.bookshelf.books.pluck(:google_books_id) if logged_in_user?
   end
