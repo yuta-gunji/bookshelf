@@ -18,7 +18,6 @@ ja:
   password_reset: 'パスワード再設定'
   new_passwrod: '新しいパスワード'
   new_passwrod_confirmation: '新しいパスワード(確認)'
-  search_books: '書籍検索'
   add_to_bookshelf: '本棚へ追加'
   number_of_added_to_bookshelf: '本棚登録者数'
   number_of_reviews: 'レビュー数'

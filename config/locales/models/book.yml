@@ -4,7 +4,7 @@ ja:
       book: '書籍'
     attributes:
       book:
-        title: 'タイトル'
+        title: '書籍名'
         authors: '著者'
         publisher: '出版社'
         published_date: '発売日'

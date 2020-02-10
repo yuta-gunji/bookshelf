@@ -1,14 +1,14 @@
 .container-fluid
-  h2.text-center
-    = I18n.t(:search_books)
-  .row.justify-content-center
-    = form_with url: search_books_path, method: :get, local: true, class: 'form-inline' do |f|
-      .form-group.mr-3
+  h2.text-center.my-3
+    = Book.model_name.human
+    = I18n.t(:search)
+  = form_with url: search_books_path, method: :get, local: true do |f|
+    .form-row.justify-content-center
+      .col-sm-6.col-md-3.my-1
         = f.label :keyword, I18n.t(:search), class: 'sr-only'
-        = f.text_field :keyword, value: @keyword, class: 'form-control form-control-lg mb-2', placeholder: '書籍名'
-      .form-group
+        = f.text_field :keyword, value: @keyword, class: 'form-control', placeholder: Book.human_attribute_name(:title)
+      .col-sm-2.col-md-1.my-1
         = f.submit I18n.t(:search), class: 'btn btn-raised btn-info'
-
   .row.d-flex
     - @books.each do |book|
       .col-sm-6.col-md-4.col-lg-3.mb-5
