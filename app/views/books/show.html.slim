@@ -35,15 +35,17 @@
         .evaluation.px-2
           span
             i.fas.fa-user.mr-1
-            | 本棚登録数 :
-            span.mx-1= @reviews_number
+            = I18n.t(:number_of_added_to_bookshelf)
+            span.ml-2= @reviews_number
             | 人
           span
             i.fas.fa-pencil-alt.ml-4.mr-1
             / TODO: Add real number
-            | レビュー数 : 3人
+            = I18n.t(:number_of_reviews)
+            span.mx-2
+              | 3件
     .row.justify-content-center
       .col-sm-12.col-md-9
         h4.text-center.mt-4
-          | 作品紹介
+          = Book.human_attribute_name(:description)
         p.text-justify= @book.description
