@@ -20,6 +20,8 @@ ja:
   new_passwrod_confirmation: '新しいパスワード(確認)'
   search_books: '書籍検索'
   add_to_bookshelf: '本棚へ追加'
+  number_of_added_to_bookshelf: '本棚登録者数'
+  number_of_reviews: 'レビュー数'
 
   successfully_created: '正常に作成されました。'
   successfully_updated: '正常に更新されました。'
