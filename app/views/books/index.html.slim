@@ -14,8 +14,9 @@
     - @books.each do |book|
       .col-sm-6.col-md-4.col-lg-3.mb-5
         .card
-          .card-header.text-center
-            img.img-thumbnail[src="#{book.image_url}" alt='No Image' class='d-inline-block']
+          .card-header
+            = link_to book_path(book.id) do
+              img.img-thumbnail.mx-auto[src="#{book.image_url}" alt='No Image' class='d-block']
           .card-body
             h5.card-title.text-truncate
               = book.title
