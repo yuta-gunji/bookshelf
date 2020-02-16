@@ -1,0 +1,70 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2
+
+jobs:
+  test:
+    docker:
+      - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy
+        environment:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres@localhost:5432/my_book_shelf_test
+
+      - image: postgres:12.1-alpine
+        environment:
+          POSTGRES_USER: postgres
+    executor: default
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-ruby-packages-{{ checksum "Gemfile.lock" }}
+            - v1-ruby-packages-
+
+      - run:
+          name: Bundle Install
+          command: bundle install --jobs=4 --retry=3 --path vendor/bundle && bundle clean
+
+      - save_cache:
+          key: v1-ruby-packages-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          keys:
+            - v1-yarn-packages-{{ checksum "yarn.lock" }}
+            - v1-yarn-packages-
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      - save_cache:
+          key: v1-yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          name: Database Setup
+          command: |
+            bin/rails db:create && bin/rails db:migrate
+
+      - run:
+          name: RSpec
+          command: |
+            mkdir /tmp/test-results
+            bin/rails spec
+
+      - store_test_results:
+          path: /tmp/test-results
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
