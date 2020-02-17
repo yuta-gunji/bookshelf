@@ -1,9 +1,8 @@
 version: 2.1
-orbs:
-  ruby: circleci/ruby@0.1.2
 
 jobs:
   test:
+    working_directory: ~/my_bookshelf
     docker:
       - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy
         environment:
@@ -13,7 +12,6 @@ jobs:
       - image: postgres:12.1-alpine
         environment:
           POSTGRES_USER: postgres
-    executor: default
     steps:
       - checkout
 
@@ -23,8 +21,16 @@ jobs:
             - v1-ruby-packages-
 
       - run:
+          name: Install bundler
+          command: gem install bundler:2.1.4
+
+      # The 'bundle clean' is necessary for safe use of cache. See https://circleci.com/docs/2.0/caching/#bundler-ruby.
+      - run:
           name: Bundle Install
-          command: bundle install --jobs=4 --retry=3 --path vendor/bundle && bundle clean
+          command: |
+            bundle config set path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
+            bundle clean
 
       - save_cache:
           key: v1-ruby-packages-{{ checksum "Gemfile.lock" }}
@@ -46,9 +52,16 @@ jobs:
             - ~/.cache/yarn
 
       - run:
+          name: Compile Assets
+          command: |
+            bin/rails assets:precompile
+            bin/rails webpacker:compile
+
+      - run:
           name: Database Setup
           command: |
-            bin/rails db:create && bin/rails db:migrate
+            bin/rails db:create
+            bin/rails db:schema:load
 
       - run:
           name: RSpec
