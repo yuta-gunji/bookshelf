@@ -65,7 +65,6 @@ jobs:
       - run:
           name: Compile Assets
           command: |
-            bin/rails assets:precompile
             bin/rails webpacker:compile
 
       - run:
