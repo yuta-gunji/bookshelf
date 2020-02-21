@@ -14,14 +14,30 @@ services:
       dockerfile: docker/app/Dockerfile
     tty: true
     stdin_open: true
-    command: bundle exec rails server -b 0.0.0.0
     volumes:
-      - .:/app:cached
-      - ./node_modules:/app/node_modules:delegated
-    ports:
-      - '3000:3000'
+      - .:/webapp:cached
+      - ./node_modules:/webapp/node_modules:delegated
+      - app-public:/webapp/public
+      - app-tmp:/webapp/tmp
+      - app-log:/webapp/log
     depends_on:
       - db
+  nginx:
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - nginx-log:/var/log/nginx
+      - app-public:/webapp/public:cached
+      - app-tmp:/webapp/tmp:cached
+    ports:
+      - 80:80
+    depends_on:
+      - app
 
 volumes:
   my_boookshelf_db:
+  app-public:
+  app-tmp:
+  app-log:
+  nginx-log:

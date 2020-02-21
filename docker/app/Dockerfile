@@ -9,16 +9,18 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
       yarn \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+WORKDIR /webapp
 
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler:2.1.4 \
   && bundle install --jobs=4
 
-COPY . /app
-RUN bin/rails yarn:install
+COPY . /webapp
+RUN bin/rails yarn:install \
+  && mkdir -p tmp/sockets \
+  && mkdir -p tmp/pids
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
+CMD bundle exec puma -C config/puma.rb
