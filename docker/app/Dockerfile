@@ -16,9 +16,11 @@ RUN gem install bundler:2.1.4 \
   && bundle install --jobs=4
 
 COPY . /webapp
-RUN bin/rails yarn:install
+RUN bin/rails yarn:install \
+  && mkdir -p tmp/sockets \
+  && mkdir -p tmp/pids
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
+CMD bundle exec puma -C config/puma.rb
