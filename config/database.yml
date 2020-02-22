@@ -80,7 +80,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: my_bookshelf_production
-  username: my_bookshelf
-  password: <%= ENV['MY_BOOKSHELF_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
