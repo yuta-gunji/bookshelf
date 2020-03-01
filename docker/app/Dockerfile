@@ -1,6 +1,7 @@
 FROM ruby:2.6.5
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+RUN set -x \
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && curl -sL https://deb.nodesource.com/setup_13.x | bash - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update -qq && apt-get install -y --no-install-recommends \
@@ -12,15 +13,17 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 WORKDIR /webapp
 
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler:2.1.4 \
+RUN set -x \
+  && gem install bundler:2.1.4 \
   && bundle install --jobs=4
 
 ARG RAILS_ENV
 
 COPY . /webapp
-RUN bin/rails yarn:install \
+RUN set -x \
+  && bin/rails yarn:install \
   && mkdir -p tmp/sockets \
-  && mkdir -p tmp/pids
-RUN if [ "${RAILS_ENV}" = "production" ]; then bin/rails webpacker:clobber && bin/rails webpacker:compile; fi
+  && mkdir -p tmp/pids \
+  && if [ "${RAILS_ENV}" = "production" ]; then bin/rails webpacker:clobber && bin/rails webpacker:compile; fi
 
-CMD bundle exec puma -C config/puma.rb
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
