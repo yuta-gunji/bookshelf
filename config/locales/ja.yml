@@ -21,6 +21,7 @@ ja:
   add_to_bookshelf: '本棚へ追加'
   number_of_added_to_bookshelf: '本棚登録者数'
   number_of_reviews: 'レビュー数'
+  write: '投稿'
 
   successfully_created: '正常に作成されました。'
   successfully_updated: '正常に更新されました。'
@@ -54,6 +55,7 @@ ja:
   delete_ok?: "本当に削除しますか？"
   added_to_bookshelf: '本棚へ追加しました。'
   already_added: '本棚へ追加済み'
+  write_review: 'レビューを投稿する'
 
   time:
     formats:
