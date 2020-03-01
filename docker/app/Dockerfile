@@ -23,7 +23,4 @@ RUN bin/rails yarn:install \
   && mkdir -p tmp/pids
 RUN if [ "${RAILS_ENV}" = "production" ]; then bin/rails webpacker:clobber && bin/rails webpacker:compile; fi
 
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
 CMD bundle exec puma -C config/puma.rb
