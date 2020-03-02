@@ -6,17 +6,20 @@ class BooksController < ApplicationController
   def index
     @books =
       if (@keyword = params[:keyword])
-        Book.where('lower(title) LIKE ?', "%#{sanitize_sql_like(@keyword.downcase)}%").order(created_at: :desc)
+        Book.where('lower(title) LIKE ?', "%#{sanitize_sql_like(@keyword.downcase)}%").recent
       else
-        Book.order(created_at: :desc)
+        Book.recent
       end
     @added_books_unique_ids = current_user.bookshelf.books.pluck(:google_books_id) if logged_in_user?
   end
 
   def show
-    @book = Book.find(params[:id])
+    @book = Book.includes(reviews: :user).find(params[:id])
     @reviews_number = @book.bookshelf_books.count
-    @adding_status = current_user.bookshelf.books.include?(@book) if logged_in_user?
+    if logged_in_user?
+      @adding_status = current_user.bookshelf.books.include?(@book)
+      @review = Review.new
+    end
   end
 
   def search

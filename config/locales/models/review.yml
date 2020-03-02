@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      review: 'レビュー'
+    attributes:
+      review:
+        title: 'タイトル'
+        content: '内容'
+        rate: '評価'
+        reviewed_at: '投稿日'
+

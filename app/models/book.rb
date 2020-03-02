@@ -7,4 +7,6 @@ class Book < ApplicationRecord
 
   validates :title, presence: true
   validates :google_books_id, presence: true, uniqueness: true
+
+  scope :recent, -> { order(created_at: :desc) }
 end
