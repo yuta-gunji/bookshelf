@@ -27,6 +27,7 @@ RSpec.feature 'Reviews', type: :system do
           .and { change { user.review.count }.by(1) }
         expect(current_path).to book_path(book)
         expect(page).to have_selector '.alert-success', text: I18n.t(:successfully_created)
+        expect(page).to have_content title
       end
     end
 

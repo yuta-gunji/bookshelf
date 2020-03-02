@@ -16,4 +16,15 @@ $(document).ready(function () {
       scoreName: 'review[rate]'
     }
   )
+
+  $('.rating').raty(
+    {
+      starOn: starOn,
+      starOff: starOff,
+      readOnly: true,
+      score: function () {
+        return $(this).attr('data-score');
+      }
+    }
+  )
 })
