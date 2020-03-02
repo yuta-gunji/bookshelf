@@ -16,7 +16,7 @@ RSpec.feature 'Reviews', type: :system do
         login_as(user)
       end
 
-      scenario 'user can add book to bookshelf and create review', js: true do
+      scenario 'user can add book to bookshelf and create review' do
         visit book_path(book)
         expect(current_path).to eq book_path(book)
 
