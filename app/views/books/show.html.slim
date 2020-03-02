@@ -59,12 +59,12 @@
               = current_user.name
               | さんのレビュー
             - if review.user_id == current_user.id
-              .small.d-block.float-right
-                button.btn.btn-block.text-muted.mb-0
-                  | 編集
+              .edit_review.small.d-block.float-right
+                = link_to I18n.t(:edit), edit_review_path(review), class: 'btn btn-block text-muted mb-0'
           .mb-1.text-muted
             = review.reviewed_at.strftime('%Y年%m月%d日')
           .rating.mb-2[data-score="#{review.rate}"]
+          h5= review.title
           p= review.content
 
   - if current_user
@@ -84,4 +84,4 @@
               = f.label :content, Review.human_attribute_name(:content)
               = f.text_area :content, class: 'form-control pt-2', required: true, rows: 6
             .form-group
-              = f.submit I18n.t(:write), class: 'btn btn-raised btn-block btn-primary mt-5'
+              = f.submit I18n.t(:write), class: 'btn btn-raised btn-block btn-primary mt-5', id: 'review_submit'
