@@ -1,27 +1,39 @@
-FROM ruby:2.6.5
+FROM ruby:2.6.5-alpine3.11
 
 RUN set -x \
-    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && curl -sL https://deb.nodesource.com/setup_13.x | bash - \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update -qq && apt-get install -y --no-install-recommends \
-      build-essential \
-      nodejs \
-      yarn \
-    && rm -rf /var/lib/apt/lists/*
+  && apk update \
+  && apk upgrade \
+  && apk add --no-cache \
+    gcc \
+    g++ \
+    libc-dev \
+    libxml2-dev \
+    linux-headers \
+    make \
+    nodejs \
+    postgresql \
+    postgresql-dev \
+    tzdata \
+    yarn \
+  && apk add --virtual build-packs --no-cache \
+    build-base \
+    curl-dev
 
 WORKDIR /webapp
 
 COPY Gemfile Gemfile.lock ./
 RUN set -x \
   && gem install bundler:2.1.4 \
-  && bundle install --jobs=4
+  && bundle install --jobs=4 \
+  && apk del build-packs
+
+COPY package.json yarn.lock babel.config.js postcss.config.js ./
+RUN yarn install
 
 ARG RAILS_ENV
 
 COPY . /webapp
 RUN set -x \
-  && bin/rails yarn:install \
   && mkdir -p tmp/sockets \
   && mkdir -p tmp/pids \
   && if [ "${RAILS_ENV}" = "production" ]; then bin/rails webpacker:clobber && bin/rails webpacker:compile; fi
