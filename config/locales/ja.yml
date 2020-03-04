@@ -50,6 +50,7 @@ ja:
   retry_password_reset: '再度パスワードリセットの処理を行ってください。'
   passwrod_has_been_reset: 'パスワードが更新されました。'
   activate_account: 'アカウントの有効化を行ってください。'
+  unauthorized: '権限がありません。'
 
   failed: '処理に失敗しました'
   delete_ok?: "本当に削除しますか？"
