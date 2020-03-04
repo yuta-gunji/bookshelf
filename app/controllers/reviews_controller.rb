@@ -20,12 +20,12 @@ class ReviewsController < ApplicationController
 
   def edit
     @review = Review.includes(:book, :user).find(params[:id])
-    redirect_to root_path unless current_user.id == @review.user_id
+    check_user_validity(@review)
   end
 
   def update
     @review = Review.includes(:book, :user).find(params[:id])
-    redirect_to root_path unless current_user.id == @review.user_id
+    check_user_validity(@review)
 
     if @review.update(review_params)
       flash[:success] = I18n.t(:successfully_updated)
@@ -60,5 +60,15 @@ class ReviewsController < ApplicationController
 
   def set_adding_status
     @adding_status = current_user.bookshelf.books.include?(@book)
+  end
+
+  def check_user_validity(review)
+    if !current_user
+      flash[:danger] = I18n.t(:please_login)
+      redirect_to login_path
+    elsif current_user.id != review.user_id
+      flash[:danger] = I18n.t(:unauthorized)
+      redirect_to root_path
+    end
   end
 end
