@@ -8,15 +8,13 @@ RSpec.describe 'Reviews', type: :request do
     let(:user_1) { create(:user) }
     let(:user_2) { create(:user) }
 
-    before do
-      create(:bookshelf, user: user_1)
-      create(:bookshelf, user: user_2)
-      @review = create(:review, user: user_1, book: book)
-      @review_by_other_user = create(:review, user: user_2, book: book)
-      login_as(user_1)
-    end
-
     context 'when editing review by oneself' do
+      before do
+        create(:bookshelf, user: user_1)
+        @review = create(:review, user: user_1, book: book)
+        login_as(user_1)
+      end
+
       it 'succeeds' do
         get edit_review_path(@review.id)
         expect(response.status).to eq 200
@@ -29,6 +27,14 @@ RSpec.describe 'Reviews', type: :request do
     end
 
     context "when trying to edit other your's review" do
+      before do
+        create(:bookshelf, user: user_1)
+        create(:bookshelf, user: user_2)
+        @review = create(:review, user: user_1, book: book)
+        @review_by_other_user = create(:review, user: user_2, book: book)
+        login_as(user_1)
+      end
+
       it 'redirected to root path' do
         get edit_review_path(@review_by_other_user.id)
         expect(response.status).to eq 302
