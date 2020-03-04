@@ -41,5 +41,18 @@ RSpec.describe 'Reviews', type: :request do
         expect(response).to redirect_to root_path
       end
     end
+
+    context 'when user does not login' do
+      before do
+        create(:bookshelf, user: user_1)
+        @review = create(:review, user: user_1, book: book)
+      end
+
+      it 'redirected to login path' do
+        get edit_review_path(@review.id)
+        expect(response.status).to eq 302
+        expect(response).to redirect_to login_path
+      end
+    end
   end
 end
