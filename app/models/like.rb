@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Like < ApplicationRecord
-  belongs_to :review
+  belongs_to :review, counter_cache: true
   belongs_to :user
 
   validates :review, presence: true
