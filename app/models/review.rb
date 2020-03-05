@@ -11,4 +11,8 @@ class Review < ApplicationRecord
   validates :user, presence: true
   validates :book, presence: true
   validates :reviewed_at, presence: true
+
+  def already_liked?(user)
+    likes.find_by(user_id: user.id)
+  end
 end
