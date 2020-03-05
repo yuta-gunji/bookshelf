@@ -1,0 +1,11 @@
+- if logged_in_user?
+  - if review.already_liked?(current_user)
+    = link_to like_path(review.likes.find_by(user_id: current_user.id)), id: "like-link-#{review.id}", method: :delete, remote: true do
+      i.fas.fa-heart
+  - else
+    = link_to review_likes_path(review), id: "like-link-#{review.id}", method: :post, remote: true do
+      i.far.fa-heart
+- else
+  i.fas.fa-heart
+span.ml-2[id="likes-count-#{review.id}"]
+  = review.likes_count

@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   resources :books, only: %i[index show], shallow: true do
     get :search, on: :collection
-    resources :reviews, only: %i[create edit update]
+    resources :reviews, only: %i[create edit update] do
+      resources :likes, only: %i[create destroy]
+    end
   end
 
   resources :bookshelves, only: %i[] do

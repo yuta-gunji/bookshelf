@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_060700) do
+ActiveRecord::Schema.define(version: 2020_03_05_032448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(version: 2020_02_11_060700) do
     t.index ["user_id"], name: "index_bookshelves_on_user_id", unique: true
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "review_id", null: false
+    t.bigint "user_id", null: false
+    t.date "liked_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id", "user_id"], name: "index_likes_on_review_id_and_user_id", unique: true
+    t.index ["review_id"], name: "index_likes_on_review_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
@@ -56,6 +67,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_060700) do
     t.date "reviewed_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes_count", default: 0, null: false
     t.index ["book_id"], name: "index_reviews_on_book_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -78,6 +90,8 @@ ActiveRecord::Schema.define(version: 2020_02_11_060700) do
   add_foreign_key "bookshelf_books", "books"
   add_foreign_key "bookshelf_books", "bookshelves"
   add_foreign_key "bookshelves", "users"
+  add_foreign_key "likes", "reviews"
+  add_foreign_key "likes", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
 end
