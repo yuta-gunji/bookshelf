@@ -66,6 +66,9 @@
           .rating.mb-2[data-score="#{review.rate}"]
           h5= review.title
           p= review.content
+          hr
+          .likes[id="likes-for-review-#{review.id}"]
+            = render 'likes/like', review: review
 
   - if current_user
     .new_review.mb-4
