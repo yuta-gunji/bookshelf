@@ -36,14 +36,14 @@
           span
             i.fas.fa-user.mr-1
             = I18n.t(:number_of_added_to_bookshelf)
-            span.ml-2= @reviews_number
+            span.ml-2= @added_count
             | 人
           span
             i.fas.fa-pencil-alt.ml-4.mr-1
-            / TODO: Add real number
             = I18n.t(:number_of_reviews)
             span.mx-2
-              | 3件
+              = @reviews_count
+              | 件
     .row.justify-content-center
       .col-sm-12.col-md-10
         h4.text-center.mt-4
