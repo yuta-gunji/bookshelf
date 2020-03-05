@@ -14,7 +14,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.includes(reviews: :user).find(params[:id])
+    @book = Book.includes(reviews: %i[user likes]).find(params[:id])
     @reviews_number = @book.bookshelf_books.count
     if logged_in_user?
       @adding_status = current_user.bookshelf.books.include?(@book)
