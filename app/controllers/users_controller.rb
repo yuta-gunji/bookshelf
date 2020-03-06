@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  def index
+    @users = User.all.order(activated_at: :desc)
+  end
+
   def new
     @user = User.new
   end
