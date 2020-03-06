@@ -8,6 +8,12 @@ img.img-thumbnail {
   object-fit: cover;
 }
 
+img.img-small-thumbnail {
+  width: 70px;
+  height: 100px;
+  object-fit: cover;
+}
+
 img.user-image {
   max-width: 150px;
   max-height: 150x;

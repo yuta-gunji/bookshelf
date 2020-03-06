@@ -57,6 +57,7 @@ ja:
   added_to_bookshelf: '本棚へ追加しました。'
   already_added: '本棚へ追加済み'
   write_review: 'レビューを投稿する'
+  follow_user: 'フォローする'
 
   time:
     formats:

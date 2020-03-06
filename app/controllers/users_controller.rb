@@ -20,6 +20,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.includes(:reviews, bookshelf: :books).find(params[:id])
+  end
+
   private
 
   def user_params
