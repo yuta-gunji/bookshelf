@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  def index
+    @users = User.all.order(activated_at: :desc)
+  end
+
   def new
     @user = User.new
   end
@@ -14,6 +18,10 @@ class UsersController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @user = User.includes(:reviews, bookshelf: :books).find(params[:id])
   end
 
   private

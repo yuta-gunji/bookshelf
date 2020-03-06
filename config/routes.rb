@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   resources :account_activations, only: %i[edit]
   resources :password_resets, only: %i[new create edit update]
+  resources :users, only: %i[index show]
 
   resources :books, only: %i[index show], shallow: true do
     get :search, on: :collection

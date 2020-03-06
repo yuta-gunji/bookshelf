@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      bookshelf: '本棚'
+    attributes:
+      bookshelf:
+        name: '名前'
