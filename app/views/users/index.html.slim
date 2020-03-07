@@ -3,10 +3,4 @@
     = User.model_name.human
     = I18n.t(:index)
   .row.d-flex
-    - @users.each do |user|
-      .col-sm-6.col-md-3
-        .card.mb-3.text-center
-          = link_to user_path(user) do
-            img.card-img-top.user-image.mx-auto.d-block.p-2[alt=("Card image cap") src="#{asset_pack_path 'media/images/user-default.png'}"]
-          .card-body.p-2
-            h4.card-text= user.name
+    = render @users
