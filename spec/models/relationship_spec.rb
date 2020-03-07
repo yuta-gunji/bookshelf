@@ -17,4 +17,10 @@ RSpec.describe Relationship, type: :model do
     let(:invalid_relationship) { build(:relationship, follower_id: '') }
     it { expect(invalid_relationship).not_to be_valid }
   end
+
+  context 'when follow yourself' do
+    let(:user) { create(:user) }
+    let(:invalid_relationship) { build(:relationship, follower_id: user.id, followed_id: user.id) }
+    it { expect(invalid_relationship).not_to be_valid }
+  end
 end
