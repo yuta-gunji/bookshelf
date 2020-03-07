@@ -7,7 +7,7 @@ class Bookshelf < ApplicationRecord
 
   before_create :set_name
 
-  def add!(book)
+  def add(book)
     record = books.find_by(id: book.id)
     books << book unless record
   end
