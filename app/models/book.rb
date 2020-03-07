@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Book < ApplicationRecord
-  has_many :bookshelf_books
+  has_many :bookshelf_books, dependent: :destroy
   has_many :bookshelves, through: :bookshelf_books
   has_many :reviews
 

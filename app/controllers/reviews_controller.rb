@@ -47,7 +47,7 @@ class ReviewsController < ApplicationController
   end
 
   def add_to_bookshelf(book)
-    current_user.bookshelf.add!(book)
+    current_user.bookshelf.add(book)
   end
 
   def set_book
