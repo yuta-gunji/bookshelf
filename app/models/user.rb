@@ -62,6 +62,18 @@ class User < ApplicationRecord
     reset_sent_at < 24.hours.ago
   end
 
+  def follow(other_user)
+    active_relationships.find_or_create_by(followed_id: other_user.id)
+  end
+
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id)&.destroy
+  end
+
+  def following?(other_user)
+    followings.include?(other_user)
+  end
+
   private
 
   def downcase_email
