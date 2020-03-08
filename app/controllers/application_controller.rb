@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in_user?
+  helper_method :current_user, :logged_in_user?, :current_user?
 
   private
 
@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
         @_current_user = user
       end
     end
+  end
+
+  def current_user?(user)
+    user == current_user
   end
 
   def logged_in_user?
