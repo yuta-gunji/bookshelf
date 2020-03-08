@@ -3,7 +3,13 @@
     img.card-img-top.user-image.mx-auto.d-block.p-2[alt=('Card image cap') src="#{asset_pack_path 'media/images/user-default.png'}"]
     h4.text-center= @user.name
   .follow-button.text-center.mb-3
-    = link_to I18n.t(:follow_user), '#', class: 'btn btn-raised btn-primary'
+    - if logged_in_user?
+      - unless current_user?(@user)
+        #follow_form
+          - if current_user.following?(@user)
+            = render 'unfollow', user: @user
+          - else
+            = render 'follow', user: @user
 
   ul#pills-tab.nav.nav-pills.nav-justified[role='tablist']
     li.nav-item
@@ -37,9 +43,9 @@
         role: 'tab' do
         h6
           span.align-bottom.d-inline-block
-            | フォロー
-          span.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
-            | 0
+            = I18n.t(:following)
+          span#followings-count.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
+            = @followings.count
     li.nav-item
       = link_to '#pills-followers',
         class: 'nav-link',
@@ -49,9 +55,9 @@
         role: 'tab' do
         h6
           span.align-bottom.d-inline-block
-            | フォロワー
-          span.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
-            | 0
+            = I18n.t(:follower)
+          span#followers-count.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
+            = @followers.count
   #pills-tabContent.tab-content
     #pills-bookshelf.tab-pane.fade.show.active aria-labelledby='piils-bookshelf-tab' role='tabpanel'
       .row.d-flex
@@ -87,6 +93,8 @@
                 = review.book.title
 
     #pills-followings.tab-pane.fade aria-labelledby='pills-followings-tab' role='tabpanel'
-      | displays followings
+      #followings-list.row.d-flex
+        = render @followings
     #pills-followers.tab-pane.fade aria-labelledby='pills-followers-tab' role='tabpanel'
-      | displays followers
+      #followers-list.row.d-flex
+        = render @followers

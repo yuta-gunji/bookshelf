@@ -25,9 +25,7 @@ RSpec.describe 'Users', type: :request do
 
   describe 'GET #show' do
     let(:user) { create(:user) }
-    before do
-      create(:bookshelf, user: user)
-    end
+    before { create(:bookshelf, user: user) }
 
     it 'succeeds' do
       get user_path(user)
