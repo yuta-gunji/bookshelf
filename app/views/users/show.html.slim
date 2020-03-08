@@ -37,9 +37,9 @@
         role: 'tab' do
         h6
           span.align-bottom.d-inline-block
-            | フォロー
+            = I18n.t(:following)
           span.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
-            | 0
+            = @followings.count
     li.nav-item
       = link_to '#pills-followers',
         class: 'nav-link',
@@ -49,9 +49,9 @@
         role: 'tab' do
         h6
           span.align-bottom.d-inline-block
-            | フォロワー
+            = I18n.t(:follower)
           span.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
-            | 0
+            = @followers.count
   #pills-tabContent.tab-content
     #pills-bookshelf.tab-pane.fade.show.active aria-labelledby='piils-bookshelf-tab' role='tabpanel'
       .row.d-flex
@@ -87,6 +87,8 @@
                 = review.book.title
 
     #pills-followings.tab-pane.fade aria-labelledby='pills-followings-tab' role='tabpanel'
-      | displays followings
+      #followings-list.row.d-flex
+        = render @followings
     #pills-followers.tab-pane.fade aria-labelledby='pills-followers-tab' role='tabpanel'
-      | displays followers
+      #followers-list.row.d-flex
+        = render @followers

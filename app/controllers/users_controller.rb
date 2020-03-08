@@ -21,7 +21,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:reviews, bookshelf: :books).find(params[:id])
+    @user = User.includes(:reviews, :active_relationships, bookshelf: :books).find(params[:id])
+    @followings = @user.followings
+    @followers = @user.followers
   end
 
   private
