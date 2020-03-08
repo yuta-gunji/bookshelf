@@ -60,6 +60,7 @@ ja:
   already_added: '本棚へ追加済み'
   write_review: 'レビューを投稿する'
   follow_user: 'フォローする'
+  already_followed: 'フォロー中'
   cannot_follow_yourself: '自分自身をフォローすることはできません。'
 
   time:
