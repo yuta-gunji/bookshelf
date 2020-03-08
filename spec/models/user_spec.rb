@@ -23,9 +23,7 @@ RSpec.describe User, type: :model do
     context 'when email does not unique' do
       let(:user) { create(:user) }
       let(:duplicate_user) { user.dup }
-      before do
-        duplicate_user.email = user.email.upcase
-      end
+      before { duplicate_user.email = user.email.upcase }
       it { expect(duplicate_user).not_to be_valid }
     end
 
@@ -48,9 +46,7 @@ RSpec.describe User, type: :model do
       ]
 
       valid_addresses.each do |valid_address|
-        before do
-          user.email = valid_address
-        end
+        before { user.email = valid_address }
         it { expect(user).to be_valid }
       end
     end
@@ -66,9 +62,7 @@ RSpec.describe User, type: :model do
       ]
 
       invalid_addresses.each do |invalid_address|
-        before do
-          user.email = invalid_address
-        end
+        before { user.email = invalid_address }
         it { expect(user).not_to be_valid }
       end
     end
@@ -100,9 +94,7 @@ RSpec.describe User, type: :model do
 
   describe '#remember' do
     let(:user) { create(:user) }
-    before do
-      user.remember
-    end
+    before { user.remember }
     it { expect(user.remember_digest).to be_truthy }
   end
 
@@ -122,9 +114,7 @@ RSpec.describe User, type: :model do
 
   describe '#forget' do
     let(:user) { create(:user, remember_digest: digest(new_token)) }
-    before do
-      user.forget
-    end
+    before { user.forget }
     it { expect(user.remember_digest).to be_falsey }
   end
 
@@ -141,7 +131,6 @@ RSpec.describe User, type: :model do
   describe '#follow' do
     let(:user) { create(:user) }
     let(:another_user) { create(:user) }
-
     it 'user can follow another user' do
       expect(user.followings.count).to eq 0
       expect { user.follow(another_user) }.to change { user.followings.count }.by(1)
@@ -152,7 +141,6 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
     let(:another_user) { create(:user) }
     before { create(:relationship, follower_id: user.id, followed_id: another_user.id) }
-
     it 'user can unfollow another user' do
       expect { user.unfollow(another_user) }.to change { user.followings.count }.by(-1)
     end
@@ -162,7 +150,6 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
     let(:another_user) { create(:user) }
     before { create(:relationship, follower_id: user.id, followed_id: another_user.id) }
-
     it { expect(user.following?(another_user)).to be_truthy }
   end
 end

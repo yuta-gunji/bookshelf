@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.feature 'Users', type: :system do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-
   before do
     user.create_bookshelf
     another_user.create_bookshelf
