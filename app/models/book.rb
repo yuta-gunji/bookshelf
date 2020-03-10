@@ -9,4 +9,6 @@ class Book < ApplicationRecord
   validates :google_books_id, presence: true, uniqueness: true
 
   scope :recent, -> { order(created_at: :desc) }
+
+  paginates_per 12
 end
