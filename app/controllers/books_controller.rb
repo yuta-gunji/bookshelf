@@ -29,12 +29,17 @@ class BooksController < ApplicationController
       response = request.submit
       @books = response.found_books
       if logged_in_user?
-        added_google_books_ids = current_user.bookshelf.books.pluck(:google_books_id)
         @books = @books.reject { |book| added_google_books_ids.include?(book.google_books_id) }
         flash[:info] = I18n.t(:result_is_empty) unless @books.present?
       end
     else
       @books = []
     end
+  end
+
+  private
+
+  def added_google_books_ids
+    current_user.bookshelf.books.pluck(:google_books_id)
   end
 end
