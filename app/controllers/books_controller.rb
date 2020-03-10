@@ -10,6 +10,7 @@ class BooksController < ApplicationController
       else
         Book.recent
       end
+    @books = @books.page(params[:page])
     @added_books_unique_ids = current_user.bookshelf.books.pluck(:google_books_id) if logged_in_user?
   end
 
