@@ -63,6 +63,7 @@ ja:
   follow_user: 'フォローする'
   already_followed: 'フォロー中'
   cannot_follow_yourself: '自分自身をフォローすることはできません。'
+  result_is_empty: '検索結果がありません。'
 
   time:
     formats:

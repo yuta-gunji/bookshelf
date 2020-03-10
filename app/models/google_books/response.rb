@@ -7,9 +7,10 @@ module GoogleBooks
     end
 
     def found_books
+      return [] unless parsed_body['items']
+
       parsed_body['items'].map do |item|
         book_info = item['volumeInfo']
-
         Book.new(
           google_books_id: item['id'],
           title: book_info['title'],
