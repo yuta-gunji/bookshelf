@@ -7,7 +7,7 @@ class BookshelvesController < ApplicationController
     book = find_or_create_book!
     current_user.bookshelf.add(book)
     flash[:success] = I18n.t(:added_to_bookshelf)
-    redirect_to root_path
+    redirect_to user_path(current_user)
   end
 
   private
