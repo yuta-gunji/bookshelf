@@ -1,0 +1,8 @@
+.container
+  = render 'user_profile', user: @user
+  = render 'follow_button', user: @user
+  = render 'user_nav', user: @user, books_count: @books_count, reviews_count: @reviews_count, followings_count: @followings_count, followers_count: @followers_count
+
+  .followers-content
+    #followers-list.row.d-flex
+      = render @followers

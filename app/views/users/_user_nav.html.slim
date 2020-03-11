@@ -1,0 +1,29 @@
+ul.nav.nav-justified
+  li.nav-item
+    = link_to user_path(user), class: 'nav-link' do
+      h6
+        span.align-bottom.d-inline-block
+          = Bookshelf.model_name.human
+        span.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
+          = books_count
+  li.nav-item
+    = link_to reviews_user_path(user), class: 'nav-link' do
+      h6
+        span.align-bottom.d-inline-block
+          = Review.model_name.human
+        span.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
+          = reviews_count
+  li.nav-item
+    = link_to followings_user_path(user), class: 'nav-link' do
+      h6
+        span.align-bottom.d-inline-block
+          = I18n.t(:following)
+        span#followings-count.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
+          = followings_count
+  li.nav-item
+    = link_to followers_user_path(user), class: 'nav-link' do
+      h6
+        span.align-bottom.d-inline-block
+          = I18n.t(:follower)
+        span#followers-count.badge.badge-secondary.badge-pill.ml-2.py-1.px-2
+          = followers_count
