@@ -14,6 +14,8 @@ class Review < ApplicationRecord
 
   scope :recent, -> { order(reviewed_at: :desc) }
 
+  paginates_per 12
+
   def already_liked?(user)
     likes.find_by(user_id: user.id)
   end
