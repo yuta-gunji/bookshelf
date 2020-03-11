@@ -51,25 +51,7 @@
         p.text-justify= @book.description
 
   .reviews
-    - @book.reviews.each do |review|
-      .row.justify-content-center
-        .col-sm-12.col-md-10.bg-white.p-3.mb-4.border.rounded
-          h4.mb-0.clearfix.align-middle
-            .d-block.float-left
-              = review.user.name
-              | さんのレビュー
-            - if current_user && review.user_id == current_user.id
-              .edit_review.small.d-block.float-right
-                = link_to I18n.t(:edit), edit_review_path(review), class: 'btn btn-block text-muted mb-0'
-          .mb-1.text-muted
-            = review.reviewed_at.strftime('%Y年%m月%d日')
-          .rating.mb-2[data-score="#{review.rate}"]
-          h5= review.title
-          p= review.content
-          hr
-          .likes[id="likes-for-review-#{review.id}"]
-            = render 'likes/like', review: review
-
+    = render @book.reviews
   - if current_user
     .new_review.mb-4
       .row.justify-content-center
