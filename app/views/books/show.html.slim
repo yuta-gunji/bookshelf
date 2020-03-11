@@ -52,7 +52,7 @@
 
   .reviews
     = render @reviews
-
+    = render 'shared/pagination', records: @reviews
   - if current_user
     .new_review.mb-4
       .row.justify-content-center
