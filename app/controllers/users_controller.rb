@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @books = @user.bookshelf.books
+    @books = @user.bookshelf.books.page(params[:page])
   end
 
   def reviews
