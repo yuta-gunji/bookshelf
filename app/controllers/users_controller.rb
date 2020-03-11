@@ -21,8 +21,38 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:reviews, :active_relationships, bookshelf: :books).find(params[:id])
+    @user = User.includes(bookshelf: :books).find(params[:id])
+    @books_count = books_count(@user)
+    @reviews_count = reviews_count(@user)
+    @followings_count = followings_count(@user)
+    @followers_count = followers_count(@user)
+    @books = @user.bookshelf.books
+  end
+
+  def reviews
+    @user = User.includes(reviews: :book).find(params[:id])
+    @books_count = books_count(@user)
+    @reviews_count = reviews_count(@user)
+    @followings_count = followings_count(@user)
+    @followers_count = followers_count(@user)
+    @reviews = @user.reviews.order(reviewed_at: :desc)
+  end
+
+  def followings
+    @user = User.includes(:followings).find(params[:id])
+    @books_count = books_count(@user)
+    @reviews_count = reviews_count(@user)
+    @followings_count = followings_count(@user)
+    @followers_count = followers_count(@user)
     @followings = @user.followings
+  end
+
+  def followers
+    @user = User.includes(:followers).find(params[:id])
+    @books_count = books_count(@user)
+    @reviews_count = reviews_count(@user)
+    @followings_count = followings_count(@user)
+    @followers_count = followers_count(@user)
     @followers = @user.followers
   end
 
@@ -35,5 +65,21 @@ class UsersController < ApplicationController
       :password,
       :password_confirmation,
     )
+  end
+
+  def books_count(user)
+    user.bookshelf.books.count
+  end
+
+  def reviews_count(user)
+    user.reviews.count
+  end
+
+  def followings_count(user)
+    user.followings.count
+  end
+
+  def followers_count(user)
+    user.followers.count
   end
 end

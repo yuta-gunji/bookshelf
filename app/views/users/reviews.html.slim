@@ -1,0 +1,26 @@
+.container
+  = render 'user_profile', user: @user
+  = render 'follow_button', user: @user
+  = render 'user_nav', user: @user, books_count: @books_count, reviews_count: @reviews_count, followings_count: @followings_count, followers_count: @followers_count
+
+  .reviews-content
+    - @reviews.each do |review|
+      .row.mb-4.bg-white.p-3
+        .review-info.col-sm-8.col-md-10
+          h4.mb-0.clearfix.align-middle
+            .d-block.float-left
+              = review.user.name
+              | さんのレビュー
+            - if current_user && review.user_id == current_user.id
+              .edit_review.small.d-block.float-right
+                = link_to I18n.t(:edit), edit_review_path(review), class: 'btn btn-block text-muted mb-0'
+          .text-muted.mb-1
+            = review.reviewed_at.strftime('%Y年%m月%d日')
+          .rating.mb-2[data-score="#{review.rate}"]
+          h5= review.title
+          p.text-secondary= review.content
+        .book-info.col-sm-4.col-md-2.p-3.bg-light
+          = link_to book_path(review.book) do
+            img.img-small-thumbnail.mx-auto[src="#{review.book.image_url}" alt='No Image' class='d-block']
+            p.text-center.text-truncate.my-2
+              = review.book.title
