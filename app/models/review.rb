@@ -12,6 +12,8 @@ class Review < ApplicationRecord
   validates :book, presence: true
   validates :reviewed_at, presence: true
 
+  scope :recent, -> { order(reviewed_at: :desc) }
+
   def already_liked?(user)
     likes.find_by(user_id: user.id)
   end

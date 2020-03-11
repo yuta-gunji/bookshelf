@@ -51,7 +51,7 @@
         p.text-justify= @book.description
 
   .reviews
-    = render @book.reviews
+    = render @book.reviews.recent
   - if current_user
     .new_review.mb-4
       .row.justify-content-center
