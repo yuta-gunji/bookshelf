@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   def index
-    @users = User.all.order(activated_at: :desc)
+    @users = User.order(activated_at: :desc).page(params[:page])
   end
 
   def new
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @books = @user.bookshelf.books
+    @books = @user.bookshelf.books.page(params[:page])
   end
 
   def reviews
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @reviews = @user.reviews.order(reviewed_at: :desc)
+    @reviews = @user.reviews.recent.page(params[:page])
   end
 
   def followings
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @followings = @user.followings
+    @followings = @user.followings.page(params[:page])
   end
 
   def followers
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @followers = @user.followers
+    @followers = @user.followers.page(params[:page])
   end
 
   private

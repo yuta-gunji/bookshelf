@@ -6,3 +6,4 @@
   .followers-content
     #followers-list.row.d-flex
       = render @followers
+    = render 'shared/pagination', records: @followers
