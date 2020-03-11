@@ -5,5 +5,4 @@
 
   .reviews-content
     = render @reviews
-  .d-flex.justify-content-center.mb-3
-    = paginate @reviews
+  = render 'shared/pagination', records: @reviews
