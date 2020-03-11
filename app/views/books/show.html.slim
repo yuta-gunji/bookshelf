@@ -49,10 +49,6 @@
         h4.text-center.mt-4
           = Book.human_attribute_name(:description)
         p.text-justify= @book.description
-
-  .reviews
-    = render @reviews
-    = render 'shared/pagination', records: @reviews
   - if current_user
     .new_review.mb-4
       .row.justify-content-center
@@ -71,3 +67,6 @@
               = f.text_area :content, class: 'form-control pt-2', required: true, rows: 6
             .form-group
               = f.submit I18n.t(:write), class: 'btn btn-raised btn-block btn-primary mt-5', id: 'review_submit'
+  .reviews
+    = render @reviews
+    = render 'shared/pagination', records: @reviews
