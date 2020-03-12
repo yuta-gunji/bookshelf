@@ -5,12 +5,7 @@ require 'rails_helper'
 RSpec.feature 'FollowAndUnfollow', type: :system do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-
-  before do
-    user.create_bookshelf
-    another_user.create_bookshelf
-    login_as(user)
-  end
+  before { login_as(user) }
 
   context 'follow' do
     scenario 'user can follow another user', js: true do

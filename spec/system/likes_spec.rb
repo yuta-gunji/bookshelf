@@ -9,7 +9,6 @@ RSpec.feature 'Like', type: :system do
   context 'when login' do
     before do
       @review = create(:review, book: book)
-      create_bookshelf(user)
       login_as(user)
     end
 

@@ -9,7 +9,6 @@ RSpec.feature 'books', type: :system do
   context 'when user has logged in' do
     before do
       create(:book)
-      create_bookshelf(user)
       login_as(user)
     end
 
