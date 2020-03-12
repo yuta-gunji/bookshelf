@@ -7,9 +7,8 @@ class BookshelfBook < ApplicationRecord
   validates :book_id, presence: true
   validates :bookshelf_id, presence: true
   validates :bookshelf_id, uniqueness: { scope: :book_id }
-  validates :adding_date, presence: true
 
-  before_validation :set_adding_date, on: :create
+  before_create :set_adding_date
 
   private
 
