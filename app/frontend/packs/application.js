@@ -10,6 +10,7 @@ require("channels")
 import '@fortawesome/fontawesome-free/js/all';
 import '../javascripts/shared/bootstrap_material_design';
 import '../javascripts/shared/raty';
+import '../javascripts/users/shared';
 import '../stylesheets/application.scss';
 
 require.context('../images', true)

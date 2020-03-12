@@ -1,26 +1,26 @@
-ul.nav.nav-tabs.nav-fill.flex-column.flex-sm-row.mb-3
-  li.nav-item.flex-sm-fill
+ul.nav.nav-tabs.nav-fill.flex-column.flex-sm-row.mb-3.border-bottom
+  li.nav-item.flex-sm-fill#show-nav-item
     = link_to user_path(user), class: 'nav-link' do
       h6
         span.align-bottom.d-inline-block
           = Bookshelf.model_name.human
         span.badge.badge-secondary.badge-pill.ml-1.py-1.px-2
           = books_count
-  li.nav-item.flex-sm-fill
+  li.nav-item.flex-sm-fill#reviews-nav-item
     = link_to reviews_user_path(user), class: 'nav-link' do
       h6
         span.align-bottom.d-inline-block
           = Review.model_name.human
         span.badge.badge-secondary.badge-pill.ml-1.py-1.px-2
           = reviews_count
-  li.nav-item.flex-sm-fill
+  li.nav-item.flex-sm-fill#followings-nav-item
     = link_to followings_user_path(user), class: 'nav-link' do
       h6
         span.align-bottom.d-inline-block
           = I18n.t(:following)
         span#followings-count.badge.badge-secondary.badge-pill.ml-1.py-1.px-2
           = followings_count
-  li.nav-item.flex-sm-fill
+  li.nav-item.flex-sm-fill#followers-nav-item
     = link_to followers_user_path(user), class: 'nav-link' do
       h6
         span.align-bottom.d-inline-block
