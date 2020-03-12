@@ -45,6 +45,7 @@ Metrics/BlockLength:
     - spec/**/*_spec.rb
     - spec/factories/*
     - spec/support/*
+    - config/routes.rb
 
 Metrics/MethodLength:
   Max: 30
