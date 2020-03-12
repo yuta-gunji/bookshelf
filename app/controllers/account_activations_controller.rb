@@ -5,7 +5,6 @@ class AccountActivationsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && !user.activated? && user.authenticated?(:activation, params[:id])
       user.activate
-      user.create_bookshelf
       login(user)
       flash[:success] = I18n.t(:successfully_activated)
     else

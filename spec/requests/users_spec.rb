@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   describe 'GET #index' do
-    let(:user_1) { create(:user) }
-    let(:user_2) { create(:user) }
+    let(:user_name_1) { 'user_name_1' }
+    let(:user_name_2) { 'user_name_2' }
     before do
-      create(:bookshelf, user: user_1)
-      create(:bookshelf, user: user_2)
+      create(:user, name: user_name_1)
+      create(:user, name: user_name_2)
     end
 
     it 'succeeds' do
@@ -18,14 +18,14 @@ RSpec.describe 'Users', type: :request do
 
     it 'displays names of users' do
       get users_path
-      expect(response.body).to include user_1.name
-      expect(response.body).to include user_2.name
+      expect(response.body).to include user_name_1
+      expect(response.body).to include user_name_2
     end
   end
 
   describe 'GET #show' do
-    let(:user) { create(:user) }
-    before { create(:bookshelf, user: user) }
+    let(:user_name) { 'user_name' }
+    let(:user) { create(:user, name: user_name) }
 
     it 'succeeds' do
       get user_path(user)
@@ -33,8 +33,8 @@ RSpec.describe 'Users', type: :request do
     end
 
     it 'displays name of user' do
-      get users_path
-      expect(response.body).to include user.name
+      get user_path(user)
+      expect(response.body).to include user_name
     end
   end
 end

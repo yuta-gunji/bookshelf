@@ -3,8 +3,8 @@
 class User < ApplicationRecord
   include BCrypt
 
-  has_one :bookshelf
-  has_many :reviews
+  has_one :bookshelf, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
@@ -21,6 +21,7 @@ class User < ApplicationRecord
 
   before_save :downcase_email
   before_create :create_activation_digest
+  after_create :create_bookshelf_for_user
 
   has_secure_password
 
@@ -87,5 +88,9 @@ class User < ApplicationRecord
   def create_activation_digest
     self.activation_token = User.new_token
     self.activation_digest = User.digest(activation_token)
+  end
+
+  def create_bookshelf_for_user
+    create_bookshelf
   end
 end

@@ -10,7 +10,6 @@ RSpec.describe 'Reviews', type: :request do
 
     context 'when editing review by oneself' do
       before do
-        create(:bookshelf, user: user_1)
         @review = create(:review, user: user_1, book: book)
         login_as(user_1)
       end
@@ -28,8 +27,6 @@ RSpec.describe 'Reviews', type: :request do
 
     context "when trying to edit other your's review" do
       before do
-        create(:bookshelf, user: user_1)
-        create(:bookshelf, user: user_2)
         @review = create(:review, user: user_1, book: book)
         @review_by_other_user = create(:review, user: user_2, book: book)
         login_as(user_1)
@@ -43,10 +40,7 @@ RSpec.describe 'Reviews', type: :request do
     end
 
     context 'when user does not login' do
-      before do
-        create(:bookshelf, user: user_1)
-        @review = create(:review, user: user_1, book: book)
-      end
+      before { @review = create(:review, user: user_1, book: book) }
 
       it 'redirected to login path' do
         get edit_review_path(@review.id)
