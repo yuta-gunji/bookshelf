@@ -7,8 +7,11 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 
-import '../javascripts/application';
+import '@fortawesome/fontawesome-free/js/all';
+import '../javascripts/shared/bootstrap_material_design';
+import '../javascripts/shared/raty';
 import '../stylesheets/application.scss';
+
 require.context('../images', true)
 
 // Uncomment to copy all static images under ../images to the output folder and reference
