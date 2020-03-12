@@ -10,7 +10,7 @@ html
     = csp_meta_tag
     = stylesheet_pack_tag 'application', media: 'all'
     = javascript_pack_tag 'application'
-  body
+  body[data-controller="#{controller.controller_name}" data-action="#{controller.action_name}"]
     = render partial: 'layouts/header'
     main
       - flash.each do |key, value|
