@@ -2,7 +2,7 @@
 
 class BookshelfBook < ApplicationRecord
   belongs_to :bookshelf
-  belongs_to :book
+  belongs_to :book, counter_cache: true
 
   validates :book_id, presence: true
   validates :bookshelf_id, presence: true
