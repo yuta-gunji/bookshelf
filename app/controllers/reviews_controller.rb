@@ -12,7 +12,6 @@ class ReviewsController < ApplicationController
       flash[:success] = I18n.t(:successfully_created)
       redirect_to book_path(@book)
     else
-      set_reviews_count
       set_adding_status
       render 'books/show'
     end
@@ -52,10 +51,6 @@ class ReviewsController < ApplicationController
 
   def set_book
     @book = Book.find(review_params[:book_id])
-  end
-
-  def set_reviews_count
-    @reviews_number = @book.bookshelf_books.count
   end
 
   def set_adding_status
