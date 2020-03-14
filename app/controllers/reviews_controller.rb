@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
 
   def create
     book = Book.find(review_params[:book_id])
-    add_to_bookshelf(book)
+    current_user.bookshelf.add(book)
     review = current_user.reviews.new(review_params)
     review.save!
     flash[:success] = I18n.t(:successfully_created)
@@ -38,10 +38,6 @@ class ReviewsController < ApplicationController
       :rate,
       :book_id
     ).merge(reviewed_at: Time.current)
-  end
-
-  def add_to_bookshelf(book)
-    current_user.bookshelf.add(book)
   end
 
   def check_user_validity(user)
