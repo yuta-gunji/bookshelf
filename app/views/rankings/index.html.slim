@@ -1,0 +1,38 @@
+.container-fluid
+  h2.text-center.my-3
+    = I18n.t(:ranking)
+    | を見てみよう
+  ul#nav-tab.nav.nav-tabs.nav-fill.mb-2 role='tablist'
+    li.nav-item
+      = link_to '#added-ranking',
+        id: 'added-ranking-tab',
+        class: 'nav-link active',
+        aria: { controls: 'added-ranking', selected: 'true' },
+        data: { toggle: 'tab' },
+        role: 'tab' do
+        h5
+          i.fas.fa-book-reader
+          span.ml-2
+            = I18n.t(:number_of_added_to_bookshelf) + I18n.t(:ranking)
+    li.nav-item
+      = link_to '#reviewed-ranking',
+        id: 'reviewed-ranking-tab',
+        class: 'nav-link',
+        aria: { controls: 'reviewed-ranking', selected: 'false' },
+        data: { toggle: 'tab' },
+        role: 'tab' do
+        h5
+          i.fas.fa-pencil-alt
+          span.ml-2
+            = I18n.t(:number_of_reviews) + I18n.t(:ranking)
+  #nav-tab-content.tab-content
+    #added-ranking.tab-pane.fade.show.active aria-labelledby='added-ranking-tab' role='tabpanel'
+      .row.d-flex
+        - @books_for_added_ranking.each.with_index(1) do |book, index|
+          = render partial: 'rankings/book', locals: { book: book, added_books_unique_ids: @added_books_unique_ids, index: index, tab_name: 'added-ranking' }
+    #reviewed-ranking.tab-pane.fade aria-labelledby='reviewed-ranking-tab' role='tabpanel'
+      .row.d-flex
+        - @books_for_reviewed_ranking.each.with_index(1) do |book, index|
+          = render partial: 'rankings/book', locals: { book: book, added_books_unique_ids: @added_books_unique_ids, index: index, tab_name: 'reviewed-ranking' }
+
+
