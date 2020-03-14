@@ -9,6 +9,8 @@ class Book < ApplicationRecord
   validates :google_books_id, presence: true, uniqueness: true
 
   scope :recent, -> { order(created_at: :desc) }
+  scope :added,  -> { where('bookshelf_books_count > 0') }
+  scope :reviewed, -> { where('reviews_count > 0') }
 
   paginates_per 12
 end

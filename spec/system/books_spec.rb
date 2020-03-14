@@ -8,14 +8,16 @@ RSpec.feature 'books', type: :system do
 
   context 'when user has logged in' do
     before do
-      create(:book)
+      @book = create(:book)
       login_as(user)
     end
 
     scenario 'is user can add book correctly' do
       visit books_path
-      expect(page).to have_selector 'h5', text: Book.first.title
+      expect(page).to have_selector 'h5', text: @book.title
       expect { click_button I18n.t(:add_to_bookshelf) }.to change { user.bookshelf.books.count }.by(1)
+      @book.reload
+      expect(@book.bookshelf_books_count).to eq 1
       expect(page).to have_selector '.alert-success', text: I18n.t(:added_to_bookshelf)
       expect(current_path).to eq user_path(user)
       visit books_path

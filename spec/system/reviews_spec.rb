@@ -18,12 +18,13 @@ RSpec.feature 'Reviews', type: :system do
       scenario 'user can add book to bookshelf and create review', js: true do
         visit book_path(book)
         expect(current_path).to eq book_path(book)
-
         fill_in 'review_title', with: title
         fill_in 'review_content', with: content
-        expect { find('#review_submit').click }
-          .to change { user.bookshelf.books.count }.by(1)
-          .and change { user.reviews.count }.by(1)
+        expect do
+          find('#review_submit').click
+        end.to change { user.bookshelf.books.count }.by(1).and change { user.reviews.count }.by(1)
+        book.reload
+        expect(book.reviews_count).to eq 1
         expect(current_path).to eq book_path(book)
         expect(page).to have_selector '.alert-success', text: I18n.t(:successfully_created)
       end

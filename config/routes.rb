@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: %i[edit]
   resources :password_resets, only: %i[new create edit update]
   resources :relationships, only: %i[create destroy]
+  resources :rankings, only: %i[index]
 
   resources :users, only: %i[index show] do
     member do

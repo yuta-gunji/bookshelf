@@ -2,7 +2,7 @@
 
 class Review < ApplicationRecord
   belongs_to :user
-  belongs_to :book
+  belongs_to :book, counter_cache: true
   has_many :likes, dependent: :destroy
 
   validates :title, presence: true
