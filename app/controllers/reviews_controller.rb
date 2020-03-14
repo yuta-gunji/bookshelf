@@ -4,17 +4,12 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: %i[create edit update]
 
   def create
-    set_book
-    add_to_bookshelf(@book)
-    @review = current_user.reviews.new(review_params)
-
-    if @review.save
-      flash[:success] = I18n.t(:successfully_created)
-      redirect_to book_path(@book)
-    else
-      set_adding_status
-      render 'books/show'
-    end
+    book = Book.find(review_params[:book_id])
+    add_to_bookshelf(book)
+    review = current_user.reviews.new(review_params)
+    review.save!
+    flash[:success] = I18n.t(:successfully_created)
+    redirect_to book_path(book)
   end
 
   def edit
@@ -47,14 +42,6 @@ class ReviewsController < ApplicationController
 
   def add_to_bookshelf(book)
     current_user.bookshelf.add(book)
-  end
-
-  def set_book
-    @book = Book.find(review_params[:book_id])
-  end
-
-  def set_adding_status
-    @adding_status = current_user.bookshelf.books.include?(@book)
   end
 
   def check_user_validity(user)
