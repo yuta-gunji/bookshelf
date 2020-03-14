@@ -36,13 +36,13 @@
           span
             i.fas.fa-user.mr-1
             = I18n.t(:number_of_added_to_bookshelf)
-            span.ml-2= @added_count
+            span.ml-2= @book.bookshelf_books_count
             | 人
           span
             i.fas.fa-pencil-alt.ml-4.mr-1
             = I18n.t(:number_of_reviews)
             span.mx-2
-              = @reviews_count
+              = @book.reviews_count
               | 件
     .row.justify-content-center
       .col-sm-12.col-md-10
