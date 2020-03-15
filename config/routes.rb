@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :relationships, only: %i[create destroy]
   resources :rankings, only: %i[index]
 
-  resources :users, only: %i[index show] do
+  resources :users, only: %i[index show edit update] do
     member do
       get :reviews
       get :followings
