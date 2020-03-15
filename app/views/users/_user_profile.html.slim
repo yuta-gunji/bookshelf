@@ -1,8 +1,8 @@
 .user-profile.my-3
+  - if current_user?(user)
+    .text-right= link_to I18n.t(:edit), edit_user_path(user), class: 'btn btn-primary border'
   - if user.avatar.attached?
     = image_tag resized_avatar(user), class: 'user-image mx-auto d-block p-2'
   - else
     = image_tag "#{asset_pack_path 'media/images/user-default.png'}", class: 'user-image mx-auto d-block p-2'
   h4.text-center= user.name
-  - if current_user?(user)
-    .d-flex.justify-content-center= link_to I18n.t(:edit), edit_user_path(user), class: 'btn btn-primary'
