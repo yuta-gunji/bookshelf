@@ -8,7 +8,7 @@
         .preview.d-flex.justify-content-center
           = f.label :avatar, class: 'preview-image' do
             - if @user.avatar.attached?
-              = image_tag @user.avatar.variant(resize_to_fill: [150, 150]), class: 'user-image edit'
+              = image_tag resized_avatar(@user), class: 'user-image edit'
             - else
               = image_tag "#{asset_pack_path 'media/images/no-image.png'}", class: 'user-image edit'
       .form-group

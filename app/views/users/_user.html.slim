@@ -1,6 +1,9 @@
-.col-sm-6.col-md-3
-  .card.mb-3.text-center
+.col-sm-6.col-md-3.mb-3
+  .card.text-center
     = link_to user_path(user) do
-      img.card-img-top.user-image.mx-auto.d-block.p-2[alt=("Card image cap") src="#{asset_pack_path 'media/images/user-default.png'}"]
-    .card-body.p-2
+      - if user.avatar.attached?
+        = image_tag resized_avatar(user), class: 'user-image mx-auto d-block p-2'
+      - else
+        = image_tag "#{asset_pack_path 'media/images/user-default.png'}", class: 'user-image mx-auto d-block p-2'
+    .card-body.p-2.mb-2
       h4.card-text= user.name
