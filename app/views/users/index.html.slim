@@ -1,7 +1,7 @@
-.container
+.container.mt-5
   h2.text-center.my-3
     = User.model_name.human
     = I18n.t(:index)
-  .row.d-flex
+  .row.d-flex.mt-5
     = render @users
   = render 'shared/pagination', records: @users

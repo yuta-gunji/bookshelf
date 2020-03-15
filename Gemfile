@@ -7,11 +7,13 @@ ruby '2.6.5'
 
 gem 'rails', '~> 6.0.2'
 
+gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'dotenv-rails'
 gem 'faker'
 gem 'faraday'
+gem 'image_processing', '~> 1.2'
 gem 'jbuilder', '~> 2.7'
 gem 'kaminari'
 gem 'pg', '>= 0.18', '< 2.0'

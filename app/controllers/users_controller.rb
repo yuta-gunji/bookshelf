@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: %i[edit update]
+
   def index
-    @users = User.order(activated_at: :desc).page(params[:page])
+    @users = User.with_attached_avatar.order(activated_at: :desc).page(params[:page])
   end
 
   def new
@@ -29,6 +31,22 @@ class UsersController < ApplicationController
     @books = @user.bookshelf.books.page(params[:page])
   end
 
+  def edit
+    @user = User.find(params[:id])
+    check_user_validity(@user)
+  end
+
+  def update
+    @user = User.find(params[:id])
+    check_user_validity(@user)
+    if @user.update(user_params)
+      flash[:success] = I18n.t(:successfully_updated)
+      redirect_to user_path(@user)
+    else
+      render :edit
+    end
+  end
+
   def reviews
     @user = User.includes(reviews: :book).find(params[:id])
     @books_count = books_count(@user)
@@ -44,7 +62,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @followings = @user.followings.page(params[:page])
+    @followings = @user.followings.with_attached_avatar.page(params[:page])
   end
 
   def followers
@@ -53,7 +71,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @followers = @user.followers.page(params[:page])
+    @followers = @user.followers.with_attached_avatar.page(params[:page])
   end
 
   private
@@ -64,6 +82,7 @@ class UsersController < ApplicationController
       :email,
       :password,
       :password_confirmation,
+      :avatar,
     )
   end
 
@@ -81,5 +100,12 @@ class UsersController < ApplicationController
 
   def followers_count(user)
     user.followers.count
+  end
+
+  def check_user_validity(user)
+    unless current_user?(user)
+      flash[:danger] = I18n.t(:unauthorized)
+      redirect_to root_path
+    end
   end
 end

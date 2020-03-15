@@ -9,6 +9,15 @@ img.img-thumbnail {
 }
 
 img.user-image {
-  max-width: 150px;
-  max-height: 150x;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10%;
+  &.edit {
+    cursor: pointer;
+  }
+}
+
+.card {
+  height: 100%;
 }

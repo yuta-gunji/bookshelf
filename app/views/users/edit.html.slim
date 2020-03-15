@@ -1,0 +1,18 @@
+.row.justify-content-center
+  .col-sm-8.col-md-5.p-3
+    h2.text-center.mb-3= I18n.t(:profile) + I18n.t(:edit)
+    = render partial: 'shared/error_messages', locals: { object: @user }
+    = form_with model: @user, local: true, id: 'edit_user' do |f|
+      .form-group
+        = f.file_field :avatar, class: 'd-none'
+        .preview.d-flex.justify-content-center
+          = f.label :avatar, class: 'preview-image' do
+            - if @user.avatar.attached?
+              = image_tag resized_avatar(@user), class: 'user-image edit'
+            - else
+              = image_tag "#{asset_pack_path 'media/images/no-image.png'}", class: 'user-image edit'
+      .form-group
+        = f.label :name, User.human_attribute_name(:name)
+        = f.text_field :name, class: 'form-control', required: true
+      .form-group
+        = f.submit I18n.t(:update), class: 'btn btn-raised btn-block btn-primary mt-5'

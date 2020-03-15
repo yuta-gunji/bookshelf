@@ -15,6 +15,7 @@ RUN set -x \
     postgresql-dev \
     tzdata \
     yarn \
+    imagemagick \
   && apk add --virtual build-packs --no-cache \
     build-base \
     curl-dev

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  has_one_attached :avatar
 
   validates :name, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
@@ -17,7 +18,8 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true,
-                       length: { minimum: 6 }
+                       length: { minimum: 6 },
+                       allow_nil: true
 
   before_save :downcase_email
   before_create :create_activation_digest
