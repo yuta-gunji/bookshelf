@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update]
 
   def index
-    @users = User.order(activated_at: :desc).page(params[:page])
+    @users = User.with_attached_avatar.order(activated_at: :desc).page(params[:page])
   end
 
   def new
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @followings = @user.followings.page(params[:page])
+    @followings = @user.followings.with_attached_avatar.page(params[:page])
   end
 
   def followers
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @followers = @user.followers.page(params[:page])
+    @followers = @user.followers.with_attached_avatar.page(params[:page])
   end
 
   private
