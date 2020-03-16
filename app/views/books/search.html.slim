@@ -1,7 +1,7 @@
 .container-fluid
   h2.text-center.my-3
     = Book.model_name.human
-    = I18n.t(:search)
+    | を登録する
   = form_with url: search_books_path, method: :get, local: true do |f|
     .form-row.justify-content-center
       .col-sm-6.col-md-3.my-1
