@@ -1,6 +1,6 @@
 .row.justify-content-center
-  .col-sm-8.col-md-5.p-3
-    h2.text-center.mb-3= I18n.t(:profile) + I18n.t(:edit)
+  .col-sm-8.col-md-5
+    h2.text-center.mb-4= I18n.t(:profile) + I18n.t(:edit)
     = render partial: 'shared/error_messages', locals: { object: @user }
     = form_with model: @user, local: true, id: 'edit_user' do |f|
       .form-group
