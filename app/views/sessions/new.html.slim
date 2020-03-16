@@ -14,9 +14,15 @@
           = f.label :remember_me, User.human_attribute_name(:remember_me), class: 'form-check-label text-muted align-middle'
         .form-group
           = f.submit I18n.t(:login), class: 'btn btn-raised btn-block btn-primary mt-4'
-      hr.my-4
       p.text-center
         = link_to I18n.t(:forget_password?), new_password_reset_path, class: 'text-info'
       p.text-center.text-muted
         | アカウントをお持ちでない方は
         span= link_to 'こちら', signup_path, class: 'text-info'
+      hr.my-4
+      = form_with scope: :session, local: true do |f|
+        = f.hidden_field :email, value: 'testuser@example.com'
+        = f.hidden_field :password, value: 'password'
+        = f.hidden_field :remember_me, value: '1'
+        .form-group
+          = f.submit I18n.t(:login_as_test_user), class: 'btn btn-raised btn-block btn-warning mt-4'

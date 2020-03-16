@@ -56,6 +56,7 @@ ja:
   passwrod_has_been_reset: 'パスワードが更新されました。'
   activate_account: 'アカウントの有効化を行ってください。'
   unauthorized: '権限がありません。'
+  login_as_test_user: 'テストユーザとしてログイン'
 
   failed: '処理に失敗しました'
   delete_ok?: "本当に削除しますか？"
