@@ -1,7 +1,14 @@
 .container
-  h2.text-center.my-3
+  h2.text-center.mb-3
     = User.model_name.human
     = I18n.t(:index)
+  = form_with url: users_path, method: :get, local: true do |f|
+    .form-row.justify-content-center
+      .col-sm-6.col-md-3.my-1
+        = f.label :name, I18n.t(:search), class: 'sr-only'
+        = f.text_field :name, value: @name, class: 'form-control', placeholder: User.human_attribute_name(:name)
+      .col-sm-2.col-md-1.my-1
+        = f.submit I18n.t(:search), class: 'btn btn-raised btn-info'
   .row.d-flex.mt-5
     = render @users
   = render 'shared/pagination', records: @users

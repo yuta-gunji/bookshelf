@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include ActiveRecord::Sanitization::ClassMethods
+
   before_action :authenticate_user!, only: %i[edit update]
 
   def index
-    @users = User.with_attached_avatar.order(activated_at: :desc).page(params[:page])
+    users =
+      if (@name = params[:name])
+        User.where('lower(name) LIKE ?', "%#{sanitize_sql_like(@name.downcase)}%")
+      else
+        User.all
+      end
+    @users = users.with_attached_avatar.order(:name).page(params[:page])
   end
 
   def new
