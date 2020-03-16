@@ -26,6 +26,7 @@ ja:
   follower: 'フォロワー'
   profile: 'プロフィール'
   ranking: 'ランキング'
+  mypage: 'マイページ'
 
   successfully_created: '正常に作成されました。'
   successfully_updated: '正常に更新されました。'

@@ -1,24 +1,36 @@
 header
   nav.navbar.navbar-expand-lg.fixed-top.navbar-light.bg-light
-    = link_to 'Navbar', root_path, class: 'navbar-brand'
+    = link_to 'MyBookshelf', root_path, class: 'navbar-brand'
     button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"]
       span.navbar-toggler-icon
     #navbarNavDropdown.collapse.navbar-collapse
       ul.navbar-nav.w-100.d-flex.justify-content-between
         li.nav-item.mx-auto
-          = link_to Book.model_name.human + I18n.t(:index), books_path, class: 'nav-link'
+          = link_to books_path, class: 'nav-link' do
+            span.mr-2
+              i.fas.fa-book.fa-lg
+            span= Book.model_name.human + I18n.t(:index)
         li.nav-item.mx-auto
-          = link_to Book.model_name.human + I18n.t(:search), search_books_path, class: 'nav-link'
+          = link_to rankings_path, class: 'nav-link' do
+            span.mr-2
+              i.fas.fa-signal.fa-lg
+            span= I18n.t(:ranking)
         li.nav-item.mx-auto
-          = link_to 'ランキング', rankings_path, class: 'nav-link'
+          = link_to users_path, class: 'nav-link' do
+            span.mr-2
+              i.fas.fa-users.fa-lg
+            span= User.model_name.human + I18n.t(:index)
         li.nav-item.mx-auto
-          = link_to User.model_name.human + '検索', users_path, class: 'nav-link'
+          = link_to search_books_path, class: 'nav-link' do
+            span.mr-2
+              i.fas.fa-plus.fa-lg
+            span= Book.model_name.human + I18n.t(:register)
         - if logged_in_user?
           li.nav-item.dropdown.mx-auto
             a#navbarDropdownMenuLink.nav-link.dropdown-toggle[href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
               = current_user.name
             .dropdown-menu[aria-labelledby="navbarDropdownMenuLink"]
-              = link_to I18n.t(:profile), user_path(current_user), class: 'dropdown-item'
+              = link_to I18n.t(:mypage), user_path(current_user), class: 'dropdown-item'
               = link_to I18n.t(:logout), logout_path, method: :delete, class: 'dropdown-item'
         - else
           li.nav-item.mx-auto
