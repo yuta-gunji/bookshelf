@@ -16,4 +16,5 @@ html
       - flash.each do |key, value|
         .container.my-3
           = content_tag(:div, value, role: 'alert', class: "alert alert-#{key}")
-      = yield
+      .content-wrapper.mt-5
+        = yield

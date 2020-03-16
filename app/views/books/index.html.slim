@@ -1,4 +1,4 @@
-.container-fluid.mt-5
+.container-fluid
   h2.text-center.my-3
     = Book.model_name.human
     = I18n.t(:index)
@@ -9,6 +9,10 @@
         = f.text_field :keyword, value: @keyword, class: 'form-control', placeholder: Book.human_attribute_name(:title)
       .col-sm-2.col-md-1.my-1
         = f.submit I18n.t(:search), class: 'btn btn-raised btn-info'
+  p.text-center.my-3
+    | 見つからない場合は
+    = link_to '書籍を追加', search_books_path
+    | してください
   .row.d-flex
     = render @books, added_books_unique_ids: @added_books_unique_ids
   = render 'shared/pagination', records: @books

@@ -2,7 +2,7 @@
   .review-info.col-sm-12.col-md-9.p-3.bg-light
     h4.mb-0.clearfix.align-middle
       .d-block.float-left
-        = review.user.name
+        = link_to review.user.name, user_path(review.user)
         | さんのレビュー
       - if current_user && current_user?(review.user)
         .edit_review.small.d-block.float-right

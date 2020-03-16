@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include ActiveRecord::Sanitization::ClassMethods
+
   before_action :authenticate_user!, only: %i[edit update]
 
   def index
-    @users = User.with_attached_avatar.order(activated_at: :desc).page(params[:page])
+    users =
+      if (@name = params[:name])
+        User.where('lower(name) LIKE ?', "%#{sanitize_sql_like(@name.downcase)}%")
+      else
+        User.all
+      end
+    @users = users.with_attached_avatar.order(:name).page(params[:page])
   end
 
   def new
@@ -28,7 +36,7 @@ class UsersController < ApplicationController
     @reviews_count = reviews_count(@user)
     @followings_count = followings_count(@user)
     @followers_count = followers_count(@user)
-    @books = @user.bookshelf.books.page(params[:page])
+    @books = @user.bookshelf.books.order('bookshelf_books.created_at').page(params[:page])
   end
 
   def edit
