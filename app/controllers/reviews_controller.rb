@@ -3,6 +3,10 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: %i[create edit update]
 
+  def index
+    @reviews = Review.includes(:book, :user, :likes).recent.page(params[:page])
+  end
+
   def create
     book = Book.find(review_params[:book_id])
     current_user.bookshelf.add(book)

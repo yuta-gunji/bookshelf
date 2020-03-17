@@ -16,6 +16,11 @@ header
               i.fas.fa-signal.fa-lg
             span= I18n.t(:ranking)
         li.nav-item.mx-auto
+          = link_to reviews_path, class: 'nav-link' do
+            span.mr-2
+              i.fas.fa-comment-alt.fa-lg
+            span= Review.model_name.human
+        li.nav-item.mx-auto
           = link_to users_path, class: 'nav-link' do
             span.mr-2
               i.fas.fa-users.fa-lg

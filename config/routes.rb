@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reviews, only: %i[index]
+
   resources :bookshelves, only: %i[] do
     post :add_book, on: :collection
   end
