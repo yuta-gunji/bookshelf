@@ -17,3 +17,8 @@ html
         .container.my-3
           = content_tag(:div, value, role: 'alert', class: "alert alert-#{key}")
       = yield
+    .footer.text-center.text-white.mt-4.p-3.bg-dark
+      p.mb-0
+        span.mr-2
+          | &copy;
+        | MyBookshelf
