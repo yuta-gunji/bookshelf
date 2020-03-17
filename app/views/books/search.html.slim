@@ -1,5 +1,5 @@
-.container-fluid
-  h2.text-center.my-3
+.container-fluid.mt-5
+  h2.text-center.mb-3
     = Book.model_name.human
     | を登録する
   = form_with url: search_books_path, method: :get, local: true do |f|

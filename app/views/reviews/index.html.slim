@@ -1,0 +1,7 @@
+.container.mt-5
+  h2.text-center.mb-5
+    | 最新の
+    = Review.model_name.human
+  .reviews
+    = render @reviews
+  = render 'shared/pagination', records: @reviews

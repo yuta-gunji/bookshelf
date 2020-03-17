@@ -16,5 +16,9 @@ html
       - flash.each do |key, value|
         .container.my-3
           = content_tag(:div, value, role: 'alert', class: "alert alert-#{key}")
-      .content-wrapper.mt-5
-        = yield
+      = yield
+    .footer.text-center.text-white.mt-4.p-3.bg-dark
+      p.mb-0
+        span.mr-2
+          | &copy;
+        | MyBookshelf
