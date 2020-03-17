@@ -1,0 +1,26 @@
+.top-wrapper
+  .d-flex.justify-content-center.align-items-center.content
+    .text-center.text-white
+      h1.mb-3 MyBookshelf
+.container.mt-5.mb-3
+  .heading.text-center.mb-5
+    h2.mb-3 MyBookshelfとは
+    p Mybookshelfは書籍管理サービスです。
+    p みんなのレビューを参考にして自分の本棚を作っていきましょう。
+  .row.usecases.text-center
+    .col-md-4.usecase.mb-4
+      i.fas.fa-search-plus.fa-3x.mb-3
+      h4 本と出会う
+      p 気になる書籍を検索して自分の本棚に追加しましょう。
+      span= link_to I18n.t(:look_at_books), books_path, class: 'btn btn-raised btn-primary'
+    .col-md-4.usecase.mb-4
+      i.fas.fa-pencil-alt.fa-3x.mb-3
+      h4 レビューを書く・読む
+      p レビューを読んだり、書いたりして共有してみましょう。
+      span= link_to I18n.t(:look_at_reviews), reviews_path, class: 'btn btn-raised btn-success'
+    .col-md-4.usecase.mb-4
+      i.fas.fa-book-reader.fa-3x.mb-3
+      h4 本棚を充実させる
+      p 人気の本を知ってもっと本棚に追加していきましょう。
+      span= link_to I18n.t(:look_at_rankings), rankings_path, class: 'btn btn-raised btn-info'
+
