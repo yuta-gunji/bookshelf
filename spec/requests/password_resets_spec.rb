@@ -17,7 +17,7 @@ RSpec.describe 'PasswordResets', type: :request do
       it 'succeeds with redirect' do
         post password_resets_path, params: { password_reset: { email: user.email } }
         expect(response.status).to eq 302
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to login_path
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe 'PasswordResets', type: :request do
       it 'fails with redirect' do
         get edit_password_reset_path('incorrect_token', email: user.email)
         expect(response.status).to eq 302
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to login_path
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe 'PasswordResets', type: :request do
       it 'fails with redirect' do
         get edit_password_reset_path(user.reset_token, email: user.email)
         expect(response.status).to eq 302
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to login_path
       end
     end
   end
@@ -88,7 +88,7 @@ RSpec.describe 'PasswordResets', type: :request do
         }
       }
       expect(response.status).to eq 302
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to user_path(user)
     end
 
     context 'when there is mismatch between password and password_confirmation' do

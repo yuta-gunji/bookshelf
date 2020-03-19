@@ -7,9 +7,10 @@ class AccountActivationsController < ApplicationController
       user.activate
       login(user)
       flash[:success] = I18n.t(:successfully_activated)
+      redirect_to user_path(user)
     else
       flash[:danger] = I18n.t(:invalid_activation_link)
+      redirect_to login_path
     end
-    redirect_to root_path
   end
 end
