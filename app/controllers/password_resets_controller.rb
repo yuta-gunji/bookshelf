@@ -12,7 +12,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:password_reset][:email])
     if @user
       @user.create_reset_digest
-      UserMailer.password_reset(@user).deliver_now
+      UserMailer.password_reset(@user).deliver
       flash[:info] = I18n.t(:sent_password_reset_link)
       redirect_to root_path
     else
