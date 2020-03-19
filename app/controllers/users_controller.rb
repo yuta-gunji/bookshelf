@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      UserMailer.account_activation(@user).deliver_now
+      UserMailer.account_activation(@user).deliver
       flash[:info] = I18n.t(:sent_email_for_account_activation)
       redirect_to root_path
     else
