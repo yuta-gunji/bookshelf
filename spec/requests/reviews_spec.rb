@@ -35,7 +35,7 @@ RSpec.describe 'Reviews', type: :request do
       it 'redirected to root path' do
         get edit_review_path(@review_by_other_user.id)
         expect(response.status).to eq 302
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to user_path(user_1)
       end
     end
 
