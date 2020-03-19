@@ -2,7 +2,7 @@
 
 class SessionsController < ApplicationController
   def new
-    return redirect_to root_path if logged_in_user?
+    return redirect_to user_path(current_user) if logged_in_user?
   end
 
   def create
@@ -12,12 +12,11 @@ class SessionsController < ApplicationController
         login(user)
         update_remember_status(user)
         flash[:success] = I18n.t(:login_succeeded)
+        redirect_to user_path(user)
       else
-        message = I18n.t(:account_not_activated)
-        message += I18n.t(:check_email_for_activation_link)
-        flash[:warning] = message
+        flash[:warning] = I18n.t(:account_not_activated) + I18n.t(:check_email_for_activation_link)
+        redirect_to login_path
       end
-      redirect_to root_path
     else
       render :new
     end
@@ -26,7 +25,7 @@ class SessionsController < ApplicationController
   def destroy
     logout if logged_in_user?
     flash[:success] = I18n.t(:logout_succeeded)
-    redirect_to root_path
+    redirect_to login_path
   end
 
   private

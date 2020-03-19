@@ -14,7 +14,7 @@ class PasswordResetsController < ApplicationController
       @user.create_reset_digest
       UserMailer.password_reset(@user).deliver
       flash[:info] = I18n.t(:sent_password_reset_link)
-      redirect_to root_path
+      redirect_to login_path
     else
       flash.now[:danger] = I18n.t(:email_address_not_found)
       render :new
@@ -26,9 +26,9 @@ class PasswordResetsController < ApplicationController
 
   def update
     if @user.update(user_params.merge(reset_digest: nil))
-      login @user
+      login(@user)
       flash[:success] = I18n.t(:passwrod_has_been_reset)
-      redirect_to root_path
+      redirect_to user_path(@user)
     else
       render :edit
     end
@@ -50,10 +50,10 @@ class PasswordResetsController < ApplicationController
   def check_user_validity
     if !@user.activated?
       flash[:danger] = I18n.t(:account_not_activated) + I18n.t(:activate_account)
-      redirect_to root_path
+      redirect_to login_path
     elsif !@user&.authenticated?(:reset, params[:id])
       flash[:danger] = I18n.t(:invalid_activation_link) + I18n.t(:retry_password_reset)
-      redirect_to root_path
+      redirect_to login_path
     end
   end
 

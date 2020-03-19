@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     if @user.save
       UserMailer.account_activation(@user).deliver
       flash[:info] = I18n.t(:sent_email_for_account_activation)
-      redirect_to root_path
+      redirect_to login_path
     else
       render :new
     end
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
   def check_user_validity(user)
     unless current_user?(user)
       flash[:danger] = I18n.t(:unauthorized)
-      redirect_to root_path
+      redirect_to user_path(current_user)
     end
   end
 end
