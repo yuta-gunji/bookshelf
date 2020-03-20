@@ -36,3 +36,5 @@ yarn-debug.log*
 # Ignore setting file for environment variables.
 .env
 .env.*
+
+/config/credentials/production.key
