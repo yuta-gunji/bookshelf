@@ -95,7 +95,7 @@ workflows:
             branches:
               only: master
           repo: '${AWS_RESOURCE_NAME_PREFIX}-app'
-          path: 'docker/app/'
+          path: '.'
           extra-build-args: '--build-arg RAILS_ENV=production'
           tag: '${CIRCLE_SHA1}'
       - aws-ecs/deploy-service-update:
