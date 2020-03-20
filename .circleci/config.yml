@@ -109,4 +109,4 @@ workflows:
           family: '${AWS_RESOURCE_NAME_PREFIX}'
           service-name: '${AWS_RESOURCE_NAME_PREFIX}-service'
           cluster-name: '${AWS_RESOURCE_NAME_PREFIX}-cluster'
-          container-image-name-updates: 'container=nginx,tag=${CIRCLE_SHA1},container=rails,tag=${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=rails,tag=${CIRCLE_SHA1},container=nginx,tag=${CIRCLE_SHA1}'
