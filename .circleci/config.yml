@@ -1,17 +1,8 @@
 version: 2.1
 
-executors:
-  default:
-    working_directory: ~/my_bookshelf
-    docker:
-      - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy
-        environment:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres@localhost:5432/my_book_shelf_test
-
-      - image: postgres:12.1-alpine
-        environment:
-          POSTGRES_USER: postgres
+orbs:
+  aws-ecr: circleci/aws-ecr@6.7.1
+  aws-ecs: circleci/aws-ecs@1.1.0
 
 commands:
   bundle_install:
@@ -20,7 +11,6 @@ commands:
           keys:
             - v1-ruby-packages-{{ checksum "Gemfile.lock" }}
             - v1-ruby-packages-
-
       # The 'bundle clean' is necessary for safe use of cache. See https://circleci.com/docs/2.0/caching/#bundler-ruby.
       - run:
           name: Bundle Install
@@ -29,23 +19,19 @@ commands:
             bundle config set path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
             bundle clean
-
       - save_cache:
           key: v1-ruby-packages-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-
   yarn_install:
     steps:
       - restore_cache:
           keys:
             - v1-yarn-packages-{{ checksum "yarn.lock" }}
             - v1-yarn-packages-
-
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
-
       - save_cache:
           key: v1-yarn-packages-{{ checksum "yarn.lock" }}
           paths:
@@ -53,41 +39,73 @@ commands:
 
 jobs:
   rspec:
-    executor:
-      name: default
+    working_directory: ~/my_bookshelf
+    docker:
+      - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy
+        environment:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres@localhost:5432/my_book_shelf_test
+      - image: postgres:12.1-alpine
+        environment:
+          POSTGRES_USER: postgres
     steps:
       - checkout
-
       - bundle_install
-
       - yarn_install
-
       - run:
           name: Compile Assets
           command: |
             bin/rails webpacker:compile
-
       - run:
           name: Database Setup
           command: |
             bin/rails db:create
             bin/rails db:schema:load
-
       - run:
           name: RSpec
           command: |
             mkdir /tmp/test-results
             bin/rails spec
-
       - store_test_results:
           path: /tmp/test-results
-
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
 
 workflows:
   version: 2
-  test:
+  test-build-and-deploy:
     jobs:
       - rspec
+      - aws-ecr/build-and-push-image:
+          name: 'build-and-push-nginx'
+          requires:
+            - rspec
+          filters:
+            branches:
+              only: master
+          repo: '${AWS_RESOURCE_NAME_PREFIX}-nginx'
+          path: 'docker/nginx/'
+          tag: '${CIRCLE_SHA1}'
+      - aws-ecr/build-and-push-image:
+          name: 'build-and-push-rails'
+          requires:
+            - rspec
+          filters:
+            branches:
+              only: master
+          repo: '${AWS_RESOURCE_NAME_PREFIX}-app'
+          path: 'docker/app/ .'
+          extra-build-args: '--build-arg RAILS_ENV=production'
+          tag: '${CIRCLE_SHA1}'
+      - aws-ecs/deploy-service-update:
+          requires:
+            - build-and-push-nginx
+            - build-and-push-rails
+          filters:
+            branches:
+              only:
+                - master
+          family: '${AWS_RESOURCE_NAME_PREFIX}'
+          cluster-name: '${AWS_RESOURCE_NAME_PREFIX}-cluster'
+          container-image-name-updates: 'container=nginx,tag=${CIRCLE_SHA1},container=rails,tag=${CIRCLE_SHA1}'
