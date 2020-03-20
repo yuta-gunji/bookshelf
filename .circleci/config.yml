@@ -1,17 +1,5 @@
 version: 2.1
 
-executors:
-  default:
-    working_directory: ~/my_bookshelf
-    docker:
-      - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy
-        environment:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres@localhost:5432/my_book_shelf_test
-      - image: postgres:12.1-alpine
-        environment:
-          POSTGRES_USER: postgres
-
 commands:
   bundle_install:
     steps:
@@ -47,8 +35,15 @@ commands:
 
 jobs:
   rspec:
-    executor:
-      name: default
+    working_directory: ~/my_bookshelf
+    docker:
+      - image: circleci/ruby:2.6.5-stretch-node-browsers-legacy
+        environment:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres@localhost:5432/my_book_shelf_test
+      - image: postgres:12.1-alpine
+        environment:
+          POSTGRES_USER: postgres
     steps:
       - checkout
       - bundle_install
