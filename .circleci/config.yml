@@ -1,5 +1,9 @@
 version: 2.1
 
+orbs:
+  aws-ecr: circleci/aws-ecr@6.7.1
+  aws-ecs: circleci/aws-ecs@1.1.0
+
 commands:
   bundle_install:
     steps:
@@ -70,6 +74,38 @@ jobs:
 
 workflows:
   version: 2
-  test:
+  test-build-and-deploy:
     jobs:
       - rspec
+      - aws-ecr/build-and-push-image:
+          name: 'build-and-push-nginx'
+          requires:
+            - rspec
+          filters:
+            branches:
+              only: master
+          repo: '${AWS_RESOURCE_NAME_PREFIX}-nginx'
+          path: 'docker/nginx/'
+          tag: '${CIRCLE_SHA1}'
+      - aws-ecr/build-and-push-image:
+          name: 'build-and-push-rails'
+          requires:
+            - rspec
+          filters:
+            branches:
+              only: master
+          repo: '${AWS_RESOURCE_NAME_PREFIX}-app'
+          path: 'docker/app/ .'
+          extra-build-args: '--build-arg RAILS_ENV=production'
+          tag: '${CIRCLE_SHA1}'
+      - aws-ecs/deploy-service-update:
+          requires:
+            - build-and-push-nginx
+            - build-and-push-rails
+          filters:
+            branches:
+              only:
+                - master
+          family: '${AWS_RESOURCE_NAME_PREFIX}'
+          cluster-name: '${AWS_RESOURCE_NAME_PREFIX}-cluster'
+          container-image-name-updates: 'container=nginx,tag=${CIRCLE_SHA1},container=rails,tag=${CIRCLE_SHA1}'
