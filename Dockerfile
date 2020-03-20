@@ -32,6 +32,10 @@ COPY package.json yarn.lock babel.config.js postcss.config.js ./
 RUN yarn install
 
 ARG RAILS_ENV
+ENV RAILS_ENV $RAILS_ENV
+
+ARG RAILS_MASTER_KEY
+ENV RAILS_MASTER_KEY $RAILS_MASTER_KEY
 
 COPY . /webapp
 RUN set -x \
