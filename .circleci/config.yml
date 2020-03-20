@@ -8,7 +8,6 @@ executors:
         environment:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres@localhost:5432/my_book_shelf_test
-
       - image: postgres:12.1-alpine
         environment:
           POSTGRES_USER: postgres
@@ -20,7 +19,6 @@ commands:
           keys:
             - v1-ruby-packages-{{ checksum "Gemfile.lock" }}
             - v1-ruby-packages-
-
       # The 'bundle clean' is necessary for safe use of cache. See https://circleci.com/docs/2.0/caching/#bundler-ruby.
       - run:
           name: Bundle Install
@@ -29,23 +27,19 @@ commands:
             bundle config set path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
             bundle clean
-
       - save_cache:
           key: v1-ruby-packages-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-
   yarn_install:
     steps:
       - restore_cache:
           keys:
             - v1-yarn-packages-{{ checksum "yarn.lock" }}
             - v1-yarn-packages-
-
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
-
       - save_cache:
           key: v1-yarn-packages-{{ checksum "yarn.lock" }}
           paths:
@@ -57,31 +51,24 @@ jobs:
       name: default
     steps:
       - checkout
-
       - bundle_install
-
       - yarn_install
-
       - run:
           name: Compile Assets
           command: |
             bin/rails webpacker:compile
-
       - run:
           name: Database Setup
           command: |
             bin/rails db:create
             bin/rails db:schema:load
-
       - run:
           name: RSpec
           command: |
             mkdir /tmp/test-results
             bin/rails spec
-
       - store_test_results:
           path: /tmp/test-results
-
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
