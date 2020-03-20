@@ -11,7 +11,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: docker/app/Dockerfile
+      dockerfile: Dockerfile
     tty: true
     stdin_open: true
     volumes:
