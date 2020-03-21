@@ -15,7 +15,7 @@ module GoogleBooks
           google_books_id: item['id'],
           title: book_info['title'],
           authors: book_info['authors'] || [],
-          image_url: book_info['imageLinks'] ? book_info['imageLinks']['thumbnail'] : nil,
+          image_url: book_info['imageLinks'] ? convert_to_https(book_info['imageLinks']['thumbnail']) : nil,
           publisher: book_info['publisher'],
           published_date: book_info['publishedDate'],
           description: book_info['description'],
@@ -37,6 +37,10 @@ module GoogleBooks
         isbn = isbns.find { |hash| hash['type'] == "ISBN_#{digits_number}" }
         isbn.present? ? isbn['identifier'] : nil
       end
+    end
+
+    def convert_to_https(url)
+      url&.gsub(/\Ahttp:/, 'https:')
     end
   end
 end
