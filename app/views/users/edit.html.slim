@@ -1,7 +1,9 @@
 .container.mt-5
   .row.justify-content-center
-    .col-sm-8.col-md-5
-      h2.text-center.mb-4= I18n.t(:profile) + I18n.t(:edit)
+    .col-sm-8.col-md-6
+      .d-flex.justify-content-center.mb-4
+        h2= I18n.t(:profile) + I18n.t(:edit)
+        span= link_to I18n.t(:back), user_path(@user), class: 'btn btn-info border ml-3'
       = render partial: 'shared/error_messages', locals: { object: @user }
       = form_with model: @user, local: true, id: 'edit_user' do |f|
         .form-group
