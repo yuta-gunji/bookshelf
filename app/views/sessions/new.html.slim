@@ -21,8 +21,8 @@
         span= link_to 'こちら', signup_path, class: 'text-info'
       hr.my-4
       = form_with scope: :session, local: true do |f|
-        = f.hidden_field :email, value: 'testuser@example.com'
-        = f.hidden_field :password, value: 'password'
-        = f.hidden_field :remember_me, value: '1'
+        = f.hidden_field :email, id: 'test_user_email', value: 'testuser@example.com'
+        = f.hidden_field :password, id: 'test_user_password', value: 'password'
+        = f.hidden_field :remember_me, id: 'test_user_remember_me', value: '1'
         .form-group
           = f.submit I18n.t(:login_as_test_user), class: 'btn btn-raised btn-block btn-warning mt-4'
