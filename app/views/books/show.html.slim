@@ -44,11 +44,20 @@
             span.mx-2
               = @book.reviews_count
               | 件
+          - if @book.reviews.present?
+            .average.mt-2
+              - average = @book.reviews.average(:rate)
+              .rating.d-inline-block[data-score="#{average}"]
+              p.d-inline-block.ml-3
+                = average
+                span.ml-1
+                  | 点
     .row.justify-content-center
       .col-sm-12.col-md-12.col-lg-9
         h4.text-center.mt-4
           = Book.human_attribute_name(:description)
         p.text-justify= @book.description
+        hr.my-4
   - if current_user
     .new-review.mb-4
       .row.justify-content-center
