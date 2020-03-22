@@ -28,10 +28,8 @@ class BooksController < ApplicationController
       request = GoogleBooks::Request.new(params[:keyword])
       response = request.submit
       @books = response.found_books
-      if logged_in_user?
-        @books = @books.reject { |book| added_google_books_ids.include?(book.google_books_id) }
-        flash[:info] = I18n.t(:result_is_empty) unless @books.present?
-      end
+      @books = @books.reject { |book| added_google_books_ids.include?(book.google_books_id) } if logged_in_user?
+      flash.now[:info] = I18n.t(:result_is_empty) if @books.blank?
     else
       @books = []
     end
