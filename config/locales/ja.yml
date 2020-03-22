@@ -27,6 +27,7 @@ ja:
   profile: 'プロフィール'
   ranking: 'ランキング'
   mypage: 'マイページ'
+  back: '戻る'
 
   successfully_created: '正常に作成されました。'
   successfully_updated: '正常に更新されました。'
