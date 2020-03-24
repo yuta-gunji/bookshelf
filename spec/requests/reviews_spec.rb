@@ -49,4 +49,20 @@ RSpec.describe 'Reviews', type: :request do
       end
     end
   end
+
+  describe 'GET #destroy' do
+    let(:user) { create(:user) }
+    let(:book) { create(:book) }
+    before do
+      @review = create(:review, user: user, book: book)
+      login_as(user)
+    end
+
+    it 'succeeds with redirect' do
+      expect do
+        delete "/reviews/#{@review.id}"
+      end.to change { user.reviews.count }.by(-1).and change { book.reviews.count }.by(-1).and change { book.reload.reviews_count }.by(-1)
+      expect(response.status).to eq 302
+    end
+  end
 end

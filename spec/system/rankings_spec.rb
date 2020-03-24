@@ -6,7 +6,7 @@ RSpec.feature 'Rankings', type: :system do
   let(:user) { create(:user) }
   let(:title) { 'awesome title' }
 
-  before do
+  background do
     book = create(:book, title: title)
     add_to_bookshelf(user.bookshelf, book)
   end

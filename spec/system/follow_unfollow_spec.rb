@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.feature 'FollowAndUnfollow', type: :system do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-  before { login_as(user) }
+  background { login_as(user) }
 
   context 'follow' do
     scenario 'user can follow another user', js: true do
@@ -20,7 +20,7 @@ RSpec.feature 'FollowAndUnfollow', type: :system do
   end
 
   context 'unfollow' do
-    before { user.follow(another_user) }
+    background { user.follow(another_user) }
 
     scenario 'user can unfollow another user', js: true do
       visit user_path(another_user)

@@ -10,7 +10,7 @@ RSpec.feature 'Reviews', type: :system do
 
   context 'when user login' do
     context 'when create new review' do
-      before do
+      background do
         create(:book)
         login_as(user)
       end
@@ -33,7 +33,7 @@ RSpec.feature 'Reviews', type: :system do
     context 'when editing review' do
       let(:another_title) { 'another title' }
       let(:another_content) { 'another content' }
-      before do
+      background do
         add_to_bookshelf(user.bookshelf, book)
         @review = create(:review, user: user, book: book, title: title, content: content)
         login_as(user)

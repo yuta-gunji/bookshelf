@@ -1,6 +1,6 @@
 .user-profile.my-3
   - if current_user?(user)
-    .text-right= link_to I18n.t(:edit), edit_user_path(user), class: 'btn btn-primary border'
+    .text-right= link_to I18n.t(:edit), edit_user_path(user), class: 'btn btn-outline-primary'
   - if user.avatar.attached?
     = image_tag resized_avatar(user), class: 'user-image mx-auto d-block p-2'
   - else
