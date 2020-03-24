@@ -1,12 +1,19 @@
 .row.justify-content-center.bg-white.border.rounded.mb-4
   .review-info.col-sm-12.col-md-9.p-3
     h4.mb-0.clearfix.align-middle
-      .d-block.float-left
+      .float-left
         = link_to review.user.name, user_path(review.user)
         | さんのレビュー
       - if current_user && current_user?(review.user)
-        .edit_review.small.d-block.float-right
-          = link_to I18n.t(:edit), edit_review_path(review), class: 'btn btn-info mb-0'
+        .delete_review.d-block.float-right
+          = link_to I18n.t(:delete),
+            "/reviews/#{review.id}",
+            id: "delete-link-#{review.id}",
+            class: 'btn btn-outline-danger mb-0',
+            method: :delete,
+            data: { confirm: I18n.t(:delete_ok?) }
+        .edit_review.d-block.float-right
+          = link_to I18n.t(:edit), edit_review_path(review), class: 'btn btn-outline-primary mb-0 mx-3'
     .text-muted.mb-1
       = review.reviewed_at.strftime('%Y年%m月%d日')
     .rating.mb-2[data-score="#{review.rate}"]
