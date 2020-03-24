@@ -7,7 +7,7 @@ RSpec.feature 'Like', type: :system do
   let(:book) { create(:book) }
 
   context 'when login' do
-    before do
+    background do
       @review = create(:review, book: book)
       login_as(user)
     end
@@ -23,7 +23,7 @@ RSpec.feature 'Like', type: :system do
   end
 
   context 'when not login' do
-    before do
+    background do
       @review = create(:review, book: book)
     end
 

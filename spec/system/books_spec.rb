@@ -7,7 +7,7 @@ RSpec.feature 'books', type: :system do
   let(:another_user) { create(:user) }
 
   context 'when user has logged in' do
-    before do
+    background do
       @book = create(:book)
       login_as(user)
     end
@@ -26,7 +26,7 @@ RSpec.feature 'books', type: :system do
   end
 
   context 'when user does not log in' do
-    before { create(:book) }
+    background { create(:book) }
 
     scenario 'is redirected to login page' do
       visit books_path

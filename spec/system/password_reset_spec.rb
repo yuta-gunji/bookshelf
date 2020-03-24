@@ -21,7 +21,7 @@ RSpec.feature 'PasswordReset', type: :system do
 
   context 'when reset password' do
     let(:reset_token) { user.reset_token }
-    before { user.create_reset_digest }
+    background { user.create_reset_digest }
 
     scenario 'password has been reset' do
       visit edit_password_reset_path(user.reset_token, email: user.email)
