@@ -6,7 +6,9 @@ class LikesController < ApplicationController
   # Ajax
   def create
     @target_review = Review.find(params[:review_id])
-    @like = current_user.likes.create(review_id: @target_review.id) unless @target_review.already_liked?(current_user)
+    if (current_user.id != @target_review.user_id) && !@target_review.already_liked?(current_user)
+      current_user.likes.create(review_id: @target_review.id)
+    end
     @target_review.reload
     respond_to do |format|
       format.js

@@ -9,16 +9,26 @@ RSpec.feature 'Like', type: :system do
   context 'when login' do
     background do
       @review = create(:review, book: book)
+      @review_by_oneself = create(:review, book: book, user_id: user.id)
       login_as(user)
     end
 
-    scenario 'user can press like button to review', js: true do
+    scenario 'user can press like icon of review', js: true do
       visit book_path(book)
       expect(current_path).to eq book_path(book)
       expect(page).to have_selector "#likes-count-#{@review.id}", text: 0
       find("#like-link-#{@review.id}").click
       sleep 1.0
       expect(page).to have_selector "#likes-count-#{@review.id}", text: 1
+    end
+
+    scenario 'user can not press like icon of review by oneself', js: true do
+      visit book_path(book)
+      expect(current_path).to eq book_path(book)
+      expect(page).to have_selector "#likes-count-#{@review_by_oneself.id}", text: 0
+      find("#like-link-#{@review_by_oneself.id}").click
+      sleep 1.0
+      expect(page).to have_selector "#likes-count-#{@review_by_oneself.id}", text: 0
     end
   end
 
